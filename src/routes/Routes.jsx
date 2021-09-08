@@ -1,29 +1,29 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import App from '../App';
+/* import App from '../App'; */
 import NavBar from '../components/NavBar';
-import {
-  Inicio, LogIn, SignUp, Home,
-} from '../pages/Pages';
 import NavRouter from './NavRouter';
+import IndexPage from '../pages/IndexPage';
+import SignUpPage from '../pages/SignUpPage';
+import LogInPage from '../pages/LogInPage';
+import HomePage from '../pages/HomePage';
 
 const Routes = () => (
   <Switch>
-    <NavRouter path="/inicio">
-      <Inicio />
-    </NavRouter>
     <NavRouter path="/login">
-      <LogIn />
+      <LogInPage />
     </NavRouter>
-    <NavRouter path="/signup">
-      <SignUp />
+    <NavRouter path="/registro">
+      <SignUpPage />
     </NavRouter>
-    <NavRouter path="/home">
-      <Home />
+    <NavRouter path="/inicio">
+      <div>
+        <NavBar />
+        <HomePage />
+      </div>
     </NavRouter>
     <Route path="/">
-      <NavBar />
-      <App />
+      <IndexPage />
     </Route>
   </Switch>
 );
