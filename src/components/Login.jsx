@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import Input from './singleComponent/Input';
 import SessionController from '../networking/controllers/SessionController';
 
 const LogIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    SessionController.login(username, password);
+  const onSubmit = (data) => {
+    console.log(data);
+    SessionController.login(
+      data.username,
+      data.password,
+    );
   };
 
   return (
     <div>
-      <p>
-        Welcome back!
-      </p>
-      <h1>Please. Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <div>
+        <p>
+          Welcome back!
+        </p>
+        <h1>Please. Log In</h1>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="input-container">
+          <Input label="username" register={register} required icon />
+          {errors.username?.type === 'required' && 'username is required'}
+        </div>
+        <div className="input-container">
+          <FontAwesomeIcon icon={faCoffee} />
+          <Input label="password" type="password" register={register} required icon />
+          {errors.password?.type === 'required' && 'password is required'}
+        </div>
         <button type="submit">
           Continue
           {'>'}

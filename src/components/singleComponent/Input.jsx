@@ -1,30 +1,36 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-undef */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({
-  name, type, value, funcion,
-}) {
-  return (
-    <input
-      type={type}
-      name={name}
-      value={value}
-      onChange={funcion}
-    />
-  );
-}
+const Input = ({
+  label, register, required, type, icon,
+}) => (
+  <>
+    {icon ? <input type={type} {...register(label, { required })} /> : (
+      <>
+        {' '}
+        <label>{label}</label>
+        {' '}
+        <input type={type} {...register(label, { required })} />
+      </>
+    )}
+
+  </>
+);
 
 Input.defaultProps = {
   type: 'text',
-  value: '',
+  icon: false,
 };
 
 Input.propTypes = {
-  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  register: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
   type: PropTypes.string,
-  value: PropTypes.string,
-  funcion: PropTypes.func.isRequired,
+  icon: PropTypes.bool,
 };
 
 export default Input;
