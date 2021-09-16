@@ -1,3 +1,42 @@
 .App {
   text-align: center;
 }
+
+.ContainerInput {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 5px;
+}
+
+.ContainerInput > label {
+  padding-left: 5px;
+}
+
+.ContainerSignUpForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ContainerSignUpTitle {
+  width: 370px;
+  text-align: center;
+}
+
+.ContainerSignUpTitle > h1 {
+  transform:scaleX(1.5);
+}
+
+.ContainerButtonSignUp {
+  display: flex;
+}
+
+.InputGroup {
+  display: flex;
+}
+
+.error {
+  color: red;
+  margin-left: 5px;
+}

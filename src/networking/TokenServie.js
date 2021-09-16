@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const getLocalRefreshToken = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   return user?.refreshToken;

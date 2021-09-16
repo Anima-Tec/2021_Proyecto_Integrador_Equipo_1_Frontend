@@ -1,8 +1,10 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import Input from './singleComponent/Input';
+import Button from './singleComponent/Button';
 import SessionController from '../networking/controllers/SessionController';
 
 const LogIn = () => {
@@ -34,17 +36,12 @@ const LogIn = () => {
           <Input label="password" type="password" register={register} required icon />
           {errors.password?.type === 'required' && 'password is required'}
         </div>
-        <button type="submit">
-          Continue
-          {'>'}
-        </button>
+        <Button text="Continue" submit />
       </form>
       <p>
         or
       </p>
-      <button type="button">
-        Create an account
-      </button>
+      <Button text="Create an account" path="/registro" height="30px" />
     </div>
   );
 };
