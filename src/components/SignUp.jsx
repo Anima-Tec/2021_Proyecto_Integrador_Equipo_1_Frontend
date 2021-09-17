@@ -23,7 +23,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.ContainerSignUpForm}>
+    <div className={styles.ContainerGlobal}>
       <div className={styles.ContainerSignUpTitle}>
         <p>
           Hello there!
@@ -34,23 +34,26 @@ const SignUp = () => {
 
         <div className={styles.InputGroup}>
           <Input label="name" width="165px" register={register} required />
-          {errors.name?.type === 'required' && <span className={styles.error}>name is required</span>}
+          {errors.name?.type === 'required' && <span className={styles.error}>Nombre requerido</span>}
 
           <Input label="surname" width="165px" register={register} required />
-          {errors.surname?.type === 'required' && <span className={styles.error}>surname is required</span>}
+          {errors.surname?.type === 'required' && <span className={styles.error}>Apellido requerido</span>}
         </div>
 
         <Input label="username" register={register} required />
-        {errors.username?.type === 'required' && <span className={styles.error}>username is required</span>}
+        {errors.username?.type === 'required' && <span className={styles.error}>Apodo requerido</span>}
 
-        <Input label="birthDate" type="date" register={register} required />
-        {errors.birthDate?.type === 'required' && <span className={styles.error}>Birth date is required</span>}
+        <Input label="birth_date" type="date" register={register} required />
+        {errors.birthDate?.type === 'required' && <span className={styles.error}>Fecha de nacimiento requerida</span>}
 
         <Input label="email" type="email" register={register} required />
-        {errors.email?.type === 'required' && <span className={styles.error}>email is required</span>}
+        {errors.email?.type === 'required' && <span className={styles.error}>Email requerido</span>}
 
         <Input label="password" type="password" register={register} required />
-        {errors.password?.type === 'required' && <span className={styles.error}>password is required</span>}
+        {errors.password?.type === 'required' && <span className={styles.error}>Contraseña requerida</span>}
+
+        <Input label="password_confirmation" type="password" register={register} required />
+        {errors.password?.type === 'required' && <span className={styles.error}>Confirmar contraseña requerido</span>}
 
         <div className={styles.ContainerButtonSignUp}>
           <Button text="Create an account" submit />

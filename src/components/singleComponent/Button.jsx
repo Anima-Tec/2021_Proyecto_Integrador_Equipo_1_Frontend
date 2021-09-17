@@ -13,7 +13,7 @@ const Button = ({
     <>
       <button
         type={submit ? 'submit' : 'button'}
-        onClick={path ? () => history.push(path) : () => console.log('clicked')}
+        onClick={path && (() => history.push(path))}
         style={{
           color, backgroundColor, backgroundImage, width, height, border, borderRadius, margin,
         }}

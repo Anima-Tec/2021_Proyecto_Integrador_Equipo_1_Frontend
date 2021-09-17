@@ -1,9 +1,10 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import Button from './singleComponent/Button';
+import styles from '../App.module.scss';
 
 const Index = () => (
-  <div>
+  <div className={styles.ContainerGlobal}>
     <h1>HYDRA</h1>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.

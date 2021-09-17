@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style */
 import axios from 'axios';
-import { generateBackendURL } from '../Routes';
+import { generateURL } from '../Routes';
 import TokenService from '../TokenServie';
 
 class SessionController {
   static async login(username, password) {
-    const response = await axios.post(generateBackendURL('/auth/signin'), {
+    const response = await axios.post(generateURL('/login'), {
       username,
       password,
     });
@@ -13,7 +13,7 @@ class SessionController {
   }
 
   static async Signup(name, surname, username, dateBirth, email, password) {
-    const response = await axios.post(generateBackendURL('/auth/signup'), {
+    const response = await axios.post(generateURL('/register'), {
       name,
       surname,
       username,
@@ -21,7 +21,7 @@ class SessionController {
       email,
       password,
     });
-    console.log(response);
+    TokenService.setUser(response.data);
   }
 }
 

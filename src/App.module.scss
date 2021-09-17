@@ -12,7 +12,7 @@
   padding-left: 5px;
 }
 
-.ContainerSignUpForm {
+.ContainerGlobal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +25,7 @@
 }
 
 .ContainerSignUpTitle > h1 {
-  transform:scaleX(1.5);
+  font-size: xx-large;
 }
 
 .ContainerButtonSignUp {
