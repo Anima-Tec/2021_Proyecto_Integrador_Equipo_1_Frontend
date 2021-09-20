@@ -33,10 +33,10 @@ const SignUp = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <div className={styles.InputGroup}>
-          <Input label="name" width="165px" register={register} required />
+          <Input label="name" width="212px" register={register} required />
           {errors.name?.type === 'required' && <span className={styles.error}>Nombre requerido</span>}
 
-          <Input label="surname" width="165px" register={register} required />
+          <Input label="surname" width="212px" register={register} required />
           {errors.surname?.type === 'required' && <span className={styles.error}>Apellido requerido</span>}
         </div>
 

@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable quote-props */
 import axios from 'axios';
 import { generateURL } from '../Routes';
 import TokenService from '../TokenServie';
@@ -20,6 +21,10 @@ class SessionController {
       dateBirth,
       email,
       password,
+    }, {
+      headers: {
+        'Accept': 'application/json',
+      },
     });
     TokenService.setUser(response.data);
   }

@@ -17,6 +17,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #6F12E7;
+  color: white;
 }
 
 .ContainerSignUpTitle {
@@ -34,6 +37,7 @@
 
 .InputGroup {
   display: flex;
+  justify-content: space-between;
 }
 
 .error {

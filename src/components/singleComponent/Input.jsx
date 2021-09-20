@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import styles from '../../App.module.scss';
 
 const Input = ({
-  label, register, required, type, width, height, border, borderRadius,
+  label, register, required, type, width, height, border, borderRadius, outline,
 }) => (
   <div className={styles.ContainerInput}>
     <label>{label}</label>
     <input
       type={type}
       style={{
-        width, height, border, borderRadius,
+        width, height, border, borderRadius, outline,
       }}
       {...register(label, { required })}
     />
@@ -27,10 +27,11 @@ Input.defaultProps = {
   required: false,
 
   // styles
-  width: '350px',
+  width: '450px',
   height: '35px',
-  border: 'solid',
+  border: 'none',
   borderRadius: '10px',
+  outline: 'none',
 };
 
 Input.propTypes = {
@@ -46,6 +47,7 @@ Input.propTypes = {
   height: PropTypes.string,
   border: PropTypes.string,
   borderRadius: PropTypes.string,
+  outline: PropTypes.string,
 };
 
 export default Input;
