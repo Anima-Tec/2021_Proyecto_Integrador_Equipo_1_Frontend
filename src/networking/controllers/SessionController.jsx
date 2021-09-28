@@ -13,20 +13,28 @@ class SessionController {
     TokenService.setUser(response.data);
   }
 
-  static async Signup(name, surname, username, dateBirth, email, password) {
+  // eslint-disable-next-line camelcase
+  static async Signup(name, surname, username, birth_date, email, password, password_confirmation) {
     const response = await axios.post(generateURL('/register'), {
       name,
       surname,
+      birth_date,
       username,
-      dateBirth,
       email,
       password,
+      password_confirmation,
     }, {
-      headers: {
-        'Accept': 'application/json',
-      },
+      headers: { Accept: 'application/json' },
     });
     TokenService.setUser(response.data);
+  }
+
+  static async logout() {
+    const data = TokenService.getUser();
+    await axios.post(generateURL('/logout'), {}, {
+      headers: { Authorization: `Bearer ${data.data.token}` },
+    });
+    TokenService.removeUser();
   }
 }
 
