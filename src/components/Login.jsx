@@ -2,60 +2,64 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Input from './singleComponent/Input';
 import Button from './singleComponent/Button';
 import SessionController from '../networking/controllers/SessionController';
+import Spinner from './singleComponent/Spinner';
 import styles from '../App.module.scss';
 
 const LogIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const history = useHistory();
+  const { promiseInProgress } = usePromiseTracker();
 
   const onSubmit = async (data) => {
-    await SessionController.login(
+    await trackPromise(SessionController.login(
       data.username,
       data.password,
-    );
+    ));
     history.push('/inicio');
   };
 
   return (
     <div className={styles.ContainerAllLogin}>
       <div className={styles.ContainerGlobal}>
-        <div className={styles.ContainerSignUpTitle}>
+        <div className={styles.ContainerTitleForm}>
           <p>
             Bienvenido otra vez!
           </p>
           <h1>Inicie sesión.</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="input-container">
-            <Input
-              label="nombre de usuario"
-              name="username"
-              register={register}
-              required="Debe ingresar su nombre de usuario"
-              errors={errors.username || null}
+          <Input
+            label="nombre de usuario"
+            name="username"
+            register={register}
+            required="Debe ingresar su nombre de usuario"
+            errors={errors.username || null}
+          />
+          <Input
+            label="contraseña"
+            name="password"
+            type="password"
+            register={register}
+            required="Debe ingresar su contraseña"
+            errors={errors.password || null}
+            width=""
+          />
+          <div className={styles.ContainerButtonForm}>
+            <Button
+              styles={styles.BtnForm}
+              text={promiseInProgress ? <Spinner spinnerType="ring" moveType="spin" /> : 'Continuar>'}
+              submit
             />
-          </div>
-          <div className="input-container">
-            <Input
-              label="contraseña"
-              name="password"
-              type="password"
-              register={register}
-              required="Debe ingresar su contraseña"
-              errors={errors.password || null}
-            />
-          </div>
-          <div className={styles.ContainerButtonSignUp}>
-            <Button text="Continue >" submit />
           </div>
         </form>
         <p>
           o
         </p>
-        <Button text="Create an account" path="/registro" />
+        <Button styles={styles.BtnForm} text="Crear cuenta" path="/registro" />
       </div>
     </div>
   );

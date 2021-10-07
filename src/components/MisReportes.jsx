@@ -3,16 +3,18 @@ import React from 'react';
 import styles from '../App.module.scss';
 import Cards from './singleComponent/Card';
 import ReportsController from '../networking/controllers/ReportsController';
+import TokenService from '../networking/TokenServie';
 
-const Home = () => {
+const MisReportes = () => {
   const [allReports, setAllReports] = React.useState([0]);
   const [dataLoading, setDataLoading] = React.useState(true);
   const [error, setError] = React.useState('');
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    const data = await TokenService.getUser();
     const getReportes = async () => {
       try {
-        const reports = await ReportsController.getReports();
+        const reports = await ReportsController.getMisReports(data.data.userId);
         setAllReports(reports);
         setDataLoading(false);
       } catch (err) {
@@ -31,4 +33,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MisReportes;

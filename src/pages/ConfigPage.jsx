@@ -7,7 +7,7 @@ import styles from '../App.module.scss';
 import BottomNav from '../components/singleComponent/BottomNav';
 import Home from '../components/Home';
 
-const HomePage = () => {
+const ConfigPage = () => {
 /*   const data = TokenService.getUser();
   console.log(data); */
   const isDesktopOrLaptop = useMediaQuery({
@@ -22,4 +22,4 @@ const HomePage = () => {
     </div>
   );
 };
-export default HomePage;
+export default ConfigPage;

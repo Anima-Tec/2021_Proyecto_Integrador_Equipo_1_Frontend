@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -6,69 +8,41 @@ import { useHistory } from 'react-router-dom';
 const Button = ({
 
   // atributos
-  text, submit, path,
+  text, submit, path, Function,
 
   // styles
-  color, backgroundColor, backgroundImage, width, height, border, borderRadius, margin, boxShadow,
+  styles,
 }) => {
   const history = useHistory();
   return (
     <>
       <button
+        className={styles}
         type={submit ? 'submit' : 'button'}
-        onClick={path && (() => history.push(path))}
-        style={{
-          color,
-          backgroundColor,
-          backgroundImage,
-          width,
-          height,
-          border,
-          borderRadius,
-          margin,
-          boxShadow,
-        }}
+        onClick={path ? () => history.push(path) : Function}
       >
-        {text}
+        { text }
       </button>
     </>
   );
 };
 
 Button.defaultProps = {
-  // atributos
   submit: false,
   path: null,
-
-  // styles
-  color: 'white',
-  backgroundColor: '#C99CE9',
-  backgroundImage: null,
-  width: '150px',
-  height: '40px',
-  border: 'none',
-  borderRadius: '20px',
-  margin: '10px auto',
-  boxShadow: 'none',
+  Function: null,
 };
 
 Button.propTypes = {
 
   // atributos
-  text: PropTypes.string.isRequired,
+  text: PropTypes.object.isRequired,
   submit: PropTypes.bool,
   path: PropTypes.string,
+  Function: PropTypes.func,
 
   // styles
-  color: PropTypes.string,
-  backgroundColor: PropTypes.string,
-  backgroundImage: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  border: PropTypes.string,
-  borderRadius: PropTypes.string,
-  margin: PropTypes.string,
-  boxShadow: PropTypes.string,
+  styles: PropTypes.string.isRequired,
 };
 
 export default Button;

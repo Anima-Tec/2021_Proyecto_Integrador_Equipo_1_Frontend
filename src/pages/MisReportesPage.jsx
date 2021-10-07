@@ -5,9 +5,9 @@ import SideBar from '../components/SideBar';
 /* import TokenService from '../networking/TokenServie'; */
 import styles from '../App.module.scss';
 import BottomNav from '../components/singleComponent/BottomNav';
-import Home from '../components/Home';
+import MisReportes from '../components/MisReportes';
 
-const HomePage = () => {
+const MisReportesPage = () => {
 /*   const data = TokenService.getUser();
   console.log(data); */
   const isDesktopOrLaptop = useMediaQuery({
@@ -18,8 +18,8 @@ const HomePage = () => {
       { isDesktopOrLaptop
         ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
         : <BottomNav /> }
-      <Home />
+      <MisReportes />
     </div>
   );
 };
-export default HomePage;
+export default MisReportesPage;

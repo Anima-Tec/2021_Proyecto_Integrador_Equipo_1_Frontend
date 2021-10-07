@@ -6,6 +6,10 @@ import IndexPage from '../pages/IndexPage';
 import SignUpPage from '../pages/SignUpPage';
 import LogInPage from '../pages/LogInPage';
 import HomePage from '../pages/HomePage';
+import PerfilPage from '../pages/PerfilPage';
+import MisReportesPage from '../pages/MisReportesPage';
+import ConfigPage from '../pages/ConfigPage';
+import PlacePage from '../pages/PlacePage';
 import RoutesType from './RoutesType';
 
 const Routes = () => (
@@ -19,7 +23,19 @@ const Routes = () => (
     <RoutesType.PrivateRouter path="/inicio" redirect="/login">
       <HomePage />
     </RoutesType.PrivateRouter>
-    <RoutesType.NavRouter path="/">
+    <RoutesType.PrivateRouter path="/perfil" redirect="/login">
+      <PerfilPage />
+    </RoutesType.PrivateRouter>
+    <RoutesType.PrivateRouter path="/misReportes" redirect="/login">
+      <MisReportesPage />
+    </RoutesType.PrivateRouter>
+    <RoutesType.PrivateRouter path="/configuracion" redirect="/login">
+      <ConfigPage />
+    </RoutesType.PrivateRouter>
+    <RoutesType.PrivateRouter path="/places" redirect="/login">
+      <PlacePage />
+    </RoutesType.PrivateRouter>
+    <RoutesType.NavRouter path="/" redirect="/login">
       <IndexPage />
     </RoutesType.NavRouter>
   </Switch>
