@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TokenService from '../networking/TokenServie';
+import TokenService from '../networking/TokenService';
 
 const PrivateRouter = ({ path, children, redirect }) => {
   const isAuthenticated = TokenService.getLocalAccessToken();

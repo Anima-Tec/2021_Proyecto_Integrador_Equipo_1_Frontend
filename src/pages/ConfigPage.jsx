@@ -5,7 +5,7 @@ import SideBar from '../components/SideBar';
 /* import TokenService from '../networking/TokenServie'; */
 import styles from '../App.module.scss';
 import BottomNav from '../components/singleComponent/BottomNav';
-import Home from '../components/Home';
+import Configuracion from '../components/Configuracion';
 
 const ConfigPage = () => {
 /*   const data = TokenService.getUser();
@@ -18,7 +18,7 @@ const ConfigPage = () => {
       { isDesktopOrLaptop
         ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
         : <BottomNav /> }
-      <Home />
+      <Configuracion />
     </div>
   );
 };

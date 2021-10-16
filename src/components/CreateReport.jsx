@@ -1,15 +1,22 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import {
   Button, Modal, Typography, Box, Avatar, TextareaAutosize, Rating,
-  Radio, RadioGroup, FormLabel, FormControlLabel, TextField,
+  Radio, RadioGroup, FormLabel, FormControlLabel, /* TextField , */
   Tooltip,
 } from '@mui/material';
 import moment from 'moment';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 import ReportsController from '../networking/controllers/ReportsController';
 import Spinner from './singleComponent/Spinner';
+import styles from '../App.module.scss';
 
 export default function BasicModal() {
   const [assessmentValue, setAssessmentValue] = React.useState(2);
@@ -50,11 +57,28 @@ export default function BasicModal() {
       address: addressValue,
       assessment: assessmentValue,
     };
-    console.log(data);
     await createReport(data);
   };
 
-  const style = {
+  const handleChange = (address) => {
+    setAddressValue(address);
+  };
+
+  const handleSelect = (address) => {
+    setAddressValue(address);
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => console.log('Success', latLng))
+      .catch((error) => console.error('Error', error));
+  };
+
+  const searchOptions = {
+    // eslint-disable-next-line no-undef
+    location: new google.maps.LatLng(-34, -56),
+    radius: 100,
+  };
+
+  const boxStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -94,7 +118,7 @@ export default function BasicModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={boxStyle}>
           <Box sx={{
             borderBottom: '1px solid #D0D0D0',
             height: '15%',
@@ -122,19 +146,64 @@ export default function BasicModal() {
             justifyContent: 'space-between',
           }}
           >
-            <Box sx={{ margin: '3px 0px', width: '50%', cursor: 'text' }}>
+            <Box sx={{ margin: '3px 0px', width: '70%', cursor: 'text' }}>
               <Tooltip title="Ejemplo: Adidas | Tres Cruces Shopping" placement="right" arrow>
                 { statusEdit
                   ? (
-                    <TextField
-                      variant="standard"
-                      value={addressValue}
-                      color="secondary"
-                      autoFocus
-                      onChange={(e) => { setAddressValue(e.target.value); }}
-                      onKeyDown={(e) => { if (e.keyCode === 13) setStatusEdit(false); }}
-                      onBlur={() => { setStatusEdit(false); }}
-                    />
+                    <>
+                      <PlacesAutocomplete
+                        value={addressValue}
+                        onChange={handleChange}
+                        onSelect={handleSelect}
+                        searchOptions={searchOptions}
+                      >
+                        {({
+                          getInputProps, suggestions, getSuggestionItemProps, loading,
+                        }) => (
+                          <div className={styles.ContainerLocationSearchInput}>
+                            <input
+                              className={styles.LocationSearchInput}
+                              {...getInputProps({
+                                placeholder: 'Search Places ...',
+                                onKeyDown: (e) => { if (e.keyCode === 13) setStatusEdit(false); },
+                                onBlur: () => { setStatusEdit(false); },
+                              })}
+                            />
+                            <div className="autocomplete-dropdown-container">
+                              {loading && <div>Loading...</div>}
+                              {suggestions.map((suggestion) => {
+                                const className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                return (
+                                  <div
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style,
+                                    })}
+                                  >
+                                    <span>{suggestion.description}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </PlacesAutocomplete>
+                      {/*                       <TextField
+                        variant="standard"
+                        value={addressValue}
+                        color="secondary"
+                        autoFocus
+                        onChange={(e) => { setAddressValue(e.target.value); }}
+                        onKeyDown={(e) => { if (e.keyCode === 13) setStatusEdit(false); }}
+                        onBlur={() => { setStatusEdit(false); }}
+                      /> */}
+                    </>
                   )
                   : (
                     <Typography

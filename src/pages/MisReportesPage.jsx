@@ -15,9 +15,11 @@ const MisReportesPage = () => {
   });
   return (
     <div className={styles.ContainerHome}>
-      { isDesktopOrLaptop
-        ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
-        : <BottomNav /> }
+      <div className={styles.ContainerMenu}>
+        { isDesktopOrLaptop
+          ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
+          : <BottomNav /> }
+      </div>
       <MisReportes />
     </div>
   );

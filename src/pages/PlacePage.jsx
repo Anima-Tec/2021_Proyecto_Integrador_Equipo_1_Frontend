@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style *//* eslint-disable arrow-body-style */
 import React from 'react';
 /* import TokenService from '../networking/TokenServie'; */
+import Place from '../components/Place';
 import styles from '../App.module.scss';
 
 const PlacePage = () => {
@@ -9,7 +10,7 @@ const PlacePage = () => {
 
   return (
     <div className={styles.ContainerHome}>
-      <p>Place must be apear here</p>
+      <Place />
     </div>
   );
 };

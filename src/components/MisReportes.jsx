@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../App.module.scss';
 import Cards from './singleComponent/Card';
 import ReportsController from '../networking/controllers/ReportsController';
-import TokenService from '../networking/TokenServie';
+import TokenService from '../networking/TokenService';
 
 const MisReportes = () => {
   const [allReports, setAllReports] = React.useState([0]);
@@ -27,7 +27,6 @@ const MisReportes = () => {
 
   return (
     <div className={styles.ContainerHomeData}>
-      <input />
       <Cards allReports={allReports} dataLoading={dataLoading} />
     </div>
   );

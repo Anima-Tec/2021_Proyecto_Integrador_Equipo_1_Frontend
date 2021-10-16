@@ -40,10 +40,12 @@ textarea:focus {
 p::-webkit-scrollbar{
   width: 7px;
   height: 7px;
+  margin-left: 5px;
 }
 p::-webkit-scrollbar-thumb{
   background: linear-gradient(13deg, #9A31E4 14%,#3C9EDE 64%);
   border-radius: 10px;
+  margin-left: 5px;
 }
 p::-webkit-scrollbar-thumb:hover{
   background: linear-gradient(13deg, #F9D4FF 14%,#C7CEFF 64%);
@@ -139,17 +141,26 @@ p::-webkit-scrollbar-track{
 
 .ContainerHome {
   background-color: #6F12E7;
-  height: 100%;
+  min-height: 100vh;
+  height: auto;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ContainerHomeData {
-  padding: 20px 0% 20px 25%;
+  padding: 20px 0% 20px 0%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 // sideBar
+
+.ContainerMenu {
+  width: 30%;
+}
 
 .SideBar {
   font-weight: 400;
@@ -183,8 +194,8 @@ p::-webkit-scrollbar-track{
   justify-content: space-around;
   border-bottom-right-radius: 13%;
   -webkit-box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
--moz-box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
-box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
+  -moz-box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
+  box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
 }
 
 .SideBarHeader > h1{
@@ -223,12 +234,21 @@ box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
   list-style: none;
   position: relative;
   padding-left: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .SideBarMenu > ul > li {
   width: 100%;
   height: 10%;
-  padding: 15px 0px;
+  padding: 5px 0px;
+  align-self: center;
+  margin: auto;
+}
+
+.SideBarMenu > ul > li[class="active"] {
+  border-left: 2px solid white;
+  padding-left: 5px;
 }
 
 .SideBarFooter {
@@ -336,4 +356,40 @@ box-shadow: inset -23px 114px 184px -63px rgba(232,195,231,0.39);
   line-height: 1.75;
   letter-spacing: 0.02857em;
   text-transform: uppercase;
+}
+
+.ContainerLocationSearchInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  margin-left: 5px;
+}
+
+.LocationSearchInput {
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentColor;
+  padding: 4px 0 5px;
+  border: 0;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  -webkit-animation-name: mui-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-animation-duration: 10ms;
+  animation-duration: 10ms;
+  outline: none;
+}
+
+.LocationSearchInput:active {
+  border: 1px solid;
+  border-width: 0 0 2px;
+  border-color: #cacad5;
 }

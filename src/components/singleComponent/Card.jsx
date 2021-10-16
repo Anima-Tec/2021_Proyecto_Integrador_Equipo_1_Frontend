@@ -1,20 +1,51 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import {
   Card, CardContent, CardMedia, CardActionArea, Typography, Box, Avatar, Skeleton,
-  Modal, Rating, Link,
+  Modal, Rating, IconButton, Paper,
 } from '@mui/material';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+// eslint-disable-next-line import/no-named-as-default
+import AddressService from '../../networking/AddressService';
 import ReportsController from '../../networking/controllers/ReportsController';
+import styles from '../../App.module.scss';
 
-export default function Cards({ allReports, dataLoading }) {
+export default function Cards() {
+  const history = useHistory();
+  const [allReports, setAllReports] = React.useState([0]);
+  const [filteredData, setFilteredData] = React.useState([0]);
   const [oneReport, setOneReport] = React.useState([0]);
   const [modalLoading, setModalLoading] = React.useState(true);
+  const [addressValue, setAddressValue] = React.useState('');
+  const [dataLoading, setDataLoading] = React.useState(true);
+  const [reportsError, setReportsError] = React.useState('');
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => { setOpen(false); setModalLoading(true); };
+
+  React.useEffect(() => {
+    const getReportes = async () => {
+      try {
+        const reports = await ReportsController.getReports();
+        setAllReports(reports);
+        setFilteredData(reports);
+        setDataLoading(false);
+      } catch (err) {
+        setReportsError('Hubo un error al traer los reportes');
+        console.log(reportsError);
+      }
+    };
+    getReportes();
+  }, []);
 
   const getReport = async (id) => {
     handleOpen();
@@ -23,7 +54,39 @@ export default function Cards({ allReports, dataLoading }) {
     setModalLoading(false);
   };
 
-  const style = {
+  const saveAddress = async (address) => {
+    await AddressService.setAddress(address);
+    history.push(`places/${address}`);
+  };
+
+  const handleChange = async (address) => {
+    const capitaliceAddress = address.charAt(0).toUpperCase() + address.slice(1);
+    setAddressValue(capitaliceAddress);
+    const result = await allReports.filter((data) => data.address.search(capitaliceAddress) !== -1);
+    setFilteredData(result);
+  };
+
+  const handleSelect = (address) => {
+    setAddressValue(address);
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => console.log('Success', latLng))
+      .catch((error) => console.error('Error', error));
+  };
+
+  const searchOptions = {
+    // eslint-disable-next-line no-undef
+    location: new google.maps.LatLng(-34, -56),
+    radius: 100,
+  };
+
+  const clearAddress = async () => {
+    setAddressValue('');
+    const result = await allReports.filter((data) => data.address.search('') !== -1);
+    setFilteredData(result);
+  };
+
+  const boxStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -51,7 +114,59 @@ export default function Cards({ allReports, dataLoading }) {
 
   return (
     <>
-      { allReports.map((report) => (
+      <Paper sx={{
+        p: '2px 4px', display: 'flex', alignItems: 'center', width: '65%',
+      }}
+      >
+        <PlacesAutocomplete
+          value={addressValue}
+          onChange={handleChange}
+          onSelect={handleSelect}
+          searchOptions={searchOptions}
+        >
+          {({
+            getInputProps, suggestions, getSuggestionItemProps, loading,
+          }) => (
+            <div className={styles.ContainerLocationSearchInput}>
+              <input
+                className={styles.LocationSearchInput}
+                {...getInputProps({
+                  placeholder: 'Search Places ...',
+                })}
+              />
+              <div className="autocomplete-dropdown-container">
+                {loading && <div>Loading...</div>}
+                {suggestions.map((suggestion) => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
+        <IconButton onClick={clearAddress} type="submit" sx={{ p: '10px' }} aria-label="search">
+          <ClearRoundedIcon />
+        </IconButton>
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+      { filteredData.map((report) => (
         <Card sx={{
           width: 660, height: 400, margin: 8, borderRadius: 7,
         }}
@@ -93,7 +208,7 @@ export default function Cards({ allReports, dataLoading }) {
                 ) : (
                   <>
                     {' '}
-                    <Typography sx={{ color: '#3C9EDE' }} variant="h5" component="div">
+                    <Typography sx={{ color: '#3C9EDE', fontSize: '1.2rem' }} variant="h5" component="div">
                       {capitalizarPrimeraLetra(`${report.address}`)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -112,7 +227,7 @@ export default function Cards({ allReports, dataLoading }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Card sx={style}>
+        <Card sx={boxStyle}>
           {modalLoading
             ? <Skeleton sx={{ height: '40%' }} animation="wave" variant="rectangular" />
             : (
@@ -127,7 +242,7 @@ export default function Cards({ allReports, dataLoading }) {
           <CardContent sx={{
             height: '60%',
             display: 'flex',
-            width: '100%',
+            width: 'auto',
             padding: '10px 5%',
             flexDirection: 'column',
           }}
@@ -141,11 +256,9 @@ export default function Cards({ allReports, dataLoading }) {
                   </>
                 ) : (
                   <>
-                    <Link href={`/places/${oneReport.address}`} underline="none">
-                      <Typography id="modal-modal-title" sx={{ color: '#9A31E4' }} variant="h6" component="h2">
-                        {capitalizarPrimeraLetra(`${oneReport.address}`)}
-                      </Typography>
-                    </Link>
+                    <Typography id="modal-modal-title" sx={{ color: '#9A31E4', marginRight: '10px' }} variant="h6" component="h2" onClick={() => saveAddress(oneReport.address)}>
+                      {capitalizarPrimeraLetra(`${oneReport.address}`)}
+                    </Typography>
                     <Rating
                       sx={{
                         color: '#9A31E4', alignItems: 'center',
@@ -178,7 +291,7 @@ export default function Cards({ allReports, dataLoading }) {
                 <Typography
                   variant="body2"
                   sx={{
-                    width: '90%', height: '60%', maxHeight: '60%', overflow: 'auto',
+                    width: '100%', height: '60%', maxHeight: '60%', overflow: 'auto',
                   }}
                 >
                   {capitalizarPrimeraLetra(`${oneReport.description}`)}
@@ -224,13 +337,3 @@ export default function Cards({ allReports, dataLoading }) {
     </>
   );
 }
-
-Cards.defaultProps = {
-
-};
-
-Cards.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  allReports: PropTypes.array.isRequired,
-  dataLoading: PropTypes.bool.isRequired,
-};

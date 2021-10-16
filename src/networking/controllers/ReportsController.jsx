@@ -3,7 +3,7 @@
 /* eslint-disable quote-props */
 import axios from 'axios';
 import { generateURL } from '../Routes';
-import TokenService from '../TokenServie';
+import TokenService from '../TokenService';
 import ReportSerializer from '../serializers/ReportSerializer';
 import Report from '../../models/Report';
 import ExtendedReport from '../../models/ExtendedReport';

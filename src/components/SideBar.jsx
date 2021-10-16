@@ -43,14 +43,14 @@ const SideBar = ({
         <div className={styles.Curve} />
         <ul>
           <li>
-            <Button text="PERFIL" path="/perfil" />
+            <Button text="INICIO" path="/inicio" />
           </li>
           <li><CreateReport /></li>
           <li>
             <Button text="MIS REPORTES" path="/misReportes" />
           </li>
           <li>
-            <Button text="CONFIGURACIONES" path="/configuracion" />
+            <Button text="PERFIL" path="/perfil" />
           </li>
         </ul>
         <Button

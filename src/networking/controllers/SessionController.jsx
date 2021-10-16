@@ -2,7 +2,7 @@
 /* eslint-disable quote-props */
 import axios from 'axios';
 import { generateURL } from '../Routes';
-import TokenService from '../TokenServie';
+import TokenService from '../TokenService';
 
 class SessionController {
   static async login(username, password) {
