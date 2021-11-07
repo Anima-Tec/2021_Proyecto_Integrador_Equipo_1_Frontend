@@ -4,18 +4,29 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 const Button = ({
-  text, submit, path, color, backgroundColor,
-  backgroundImage, width, height, border, borderRadius, margin,
+
+  // atributos
+  text, submit, path,
+
+  // styles
+  color, backgroundColor, backgroundImage, width, height, border, borderRadius, margin, boxShadow,
 }) => {
   const history = useHistory();
-  /* () => history.push(path) */
   return (
     <>
       <button
         type={submit ? 'submit' : 'button'}
         onClick={path && (() => history.push(path))}
         style={{
-          color, backgroundColor, backgroundImage, width, height, border, borderRadius, margin,
+          color,
+          backgroundColor,
+          backgroundImage,
+          width,
+          height,
+          border,
+          borderRadius,
+          margin,
+          boxShadow,
         }}
       >
         {text}
@@ -38,6 +49,7 @@ Button.defaultProps = {
   border: 'none',
   borderRadius: '20px',
   margin: '10px auto',
+  boxShadow: 'none',
 };
 
 Button.propTypes = {
@@ -56,6 +68,7 @@ Button.propTypes = {
   border: PropTypes.string,
   borderRadius: PropTypes.string,
   margin: PropTypes.string,
+  boxShadow: PropTypes.string,
 };
 
 export default Button;
