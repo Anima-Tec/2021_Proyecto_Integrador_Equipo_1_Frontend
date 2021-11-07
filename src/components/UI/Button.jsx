@@ -36,7 +36,7 @@ Button.defaultProps = {
 Button.propTypes = {
 
   // atributos
-  text: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
   submit: PropTypes.bool,
   path: PropTypes.string,
   Function: PropTypes.func,

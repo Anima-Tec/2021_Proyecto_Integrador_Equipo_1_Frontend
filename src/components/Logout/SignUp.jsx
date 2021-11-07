@@ -4,30 +4,39 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
-import Input from './singleComponent/Input';
-import Button from './singleComponent/Button';
-import SessionController from '../networking/controllers/SessionController';
-import Spinner from './singleComponent/Spinner';
-import styles from '../App.module.scss';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
+import SessionController from '../../networking/controllers/SessionController';
+import Spinner from '../UI/Spinner';
+import styles from './Logout.module.scss';
 
 const SignUp = () => {
   const {
     register, handleSubmit, formState: { errors }, watch,
   } = useForm();
+  const [error, setError] = React.useState(false);
   const history = useHistory();
   const { promiseInProgress } = usePromiseTracker();
 
+  const showError = (mayError) => {
+    setError(mayError);
+  };
+
   const onSubmit = async (data) => {
-    await trackPromise(SessionController.Signup(
-      data.name,
-      data.surname,
-      data.username,
-      data.birth_date,
-      data.email,
-      data.password,
-      data.password_confirmation,
-    ));
-    history.push('/inicio');
+    try {
+      trackPromise(SessionController.Signup(
+        data.name,
+        data.surname,
+        data.username,
+        data.birth_date,
+        data.email,
+        data.password,
+        data.password_confirmation,
+      ));
+      history.push('/inicio');
+    } catch (requestError) {
+      showError(true);
+    }
   };
 
   return (
@@ -102,6 +111,7 @@ const SignUp = () => {
             validate={(value) => value === watch('password') || 'Las contraseñas no coinciden'}
             errors={errors.password_confirmation || null}
           />
+          {error && <span className={styles.error}>Las credenciales no coinciden</span>}
 
           <div className={styles.ContainerButtonForm}>
             <Button

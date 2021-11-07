@@ -5,8 +5,8 @@ import TokenService from '../networking/TokenService';
 
 const PrivateRouter = ({ path, children, redirect }) => {
   const isAuthenticated = TokenService.getLocalAccessToken();
-  return (
 
+  return (
     <Route path={path}>
       {isAuthenticated ? children : <Redirect to={redirect} /> }
     </Route>

@@ -7,7 +7,7 @@ import SignUpPage from '../pages/SignUpPage';
 import LogInPage from '../pages/LogInPage';
 import HomePage from '../pages/HomePage';
 import PerfilPage from '../pages/PerfilPage';
-import MisReportesPage from '../pages/MisReportesPage';
+import MyReportsPage from '../pages/MyReportsPage';
 import ConfigPage from '../pages/ConfigPage';
 import PlacePage from '../pages/PlacePage';
 import RoutesType from './RoutesType';
@@ -27,7 +27,7 @@ const Routes = () => (
       <PerfilPage />
     </RoutesType.PrivateRouter>
     <RoutesType.PrivateRouter path="/misReportes" redirect="/login">
-      <MisReportesPage />
+      <MyReportsPage />
     </RoutesType.PrivateRouter>
     <RoutesType.PrivateRouter path="/configuracion" redirect="/login">
       <ConfigPage />

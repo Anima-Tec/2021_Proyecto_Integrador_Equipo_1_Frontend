@@ -1,10 +1,12 @@
 /* eslint-disable linebreak-style */
 class PlaceSerializer {
-  static deSerializePlace(data, assessment) {
+  static deSerializePlace(data, assessment, quantity) {
     return {
       id: data.id,
       address: data.address,
+      name: data.name,
       assessment,
+      quantity,
     };
   }
 

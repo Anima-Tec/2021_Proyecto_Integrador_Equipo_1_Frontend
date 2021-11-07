@@ -4,7 +4,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../App.module.scss';
+import styles from '../Logout/Logout.module.scss';
 
 const Input = ({
   label, name, type, register, required, value, message, validate, errors,

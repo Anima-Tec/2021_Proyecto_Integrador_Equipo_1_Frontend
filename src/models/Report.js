@@ -2,7 +2,7 @@
 class Report {
   constructor(data) {
     this.id = data.id;
-    this.date = data.date;
+    this.date_ago = data.date_ago;
     this.type_report = data.type_report;
     this.description = data.description;
     this.assessment = data.assessment;

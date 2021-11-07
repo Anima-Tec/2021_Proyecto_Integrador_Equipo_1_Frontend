@@ -2,31 +2,6 @@
   text-align: center;
 }
 
-.ContainerAllIndex {
-  margin: 0px;
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(150deg, rgba(201,156,233,1) 0%, rgba(201,156,233,0) 100%);
-}
-
-.ContainerAllRegister {
-  margin: 0px;
-  width: 100%;
-  height: 100vh;
-  background-image: url(./assets/images/Register.svg);
-  background-position:center;
-  background-repeat: no-repeat;
-}
-
-.ContainerAllLogin {
-  margin: 0px;
-  width: 100%;
-  height: 100vh;
-  background-image: url(./assets/images/Login.svg);
-  background-position:center;
-  background-repeat: no-repeat;
-}
-
 // button
 
 button:hover {
@@ -58,87 +33,6 @@ p::-webkit-scrollbar-track{
 
 // inputs
 
-.ContainerInput {
-  display: flex;
-  flex-direction: column;
-  margin: 2px 5px;
-}
-
-.ContainerInput > label {
-  padding-left: 5px;
-}
-
-.ContainerInput > input {
-  width: 450px;
-  height: 35px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  padding: 3px 10px;
-}
-
-.InputGroup, .ButtonGroup {
-  display: flex;
-  justify-content: space-between;
-}
-
-.ButtonGroup > button {
-  margin: 0px 20px
-}
-
-.InputGroup > .ContainerInput > input {
-  width: 212px;
-}
-
-.ContainerGlobal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: white;
-}
-
-.ContainerTitleForm {
-  width: 370px;
-  text-align: center;
-  margin-bottom: -10px;
-}
-
-.ContainerTitleForm > h1 {
-  font-size: xx-large;
-}
-
-.ContainerTitleForm > p {
-  margin: 0;
-}
-
-.ContainerButtonForm {
-  display: flex;
-}
-
-.ContainerTextIndex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.ContainerTextIndex > p{
-  margin: 0;
-  font-weight: 700;
-  font-size: small;
-  letter-spacing: 1px;
-}
-.ContainerTextIndex > h1 {
-  margin: 0;
-}
-
-.error {
-  color: red;
-  margin-left: 5px;
-}
-
 .ContainerHome {
   background-color: #6F12E7;
   min-height: 100vh;
@@ -148,18 +42,11 @@ p::-webkit-scrollbar-track{
   justify-content: flex-start;
 }
 
-.ContainerHomeData {
-  padding: 20px 0% 20px 0%;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-}
-
 // sideBar
 
 .ContainerMenu {
   width: 30%;
+  z-index: 2;
 }
 
 .SideBar {
@@ -263,66 +150,6 @@ p::-webkit-scrollbar-track{
   color: #BD0303;
 }
 
-@media (max-width: 425px) {
-  .ContainerInput > input {
-    width: 200px;
-    height: 30px;
-  }
-
-  .InputGroup > .ContainerInput > input {
-    width: 85px;
-  }
-
-  .ContainerHome {
-    background-color: #6F12E7;
-  }
-}
-
-@media (max-width: 768px) and (min-width: 425px) {
-  .ContainerInput > input {
-    width: 300px;
-    height: 30px;
-  }
-
-  .InputGroup > .ContainerInput > input {
-    width: 135px;
-  }
-}
-
-.BtnForm {
-  color: white;
-  background-color: #C99CE9;
-  background-image: none;
-  width: 150px;
-  height: 40px;
-  border: none;
-  border-radius: 20px;
-  margin: 10px auto;
-  box-shadow: none;
-}
-
-.BtnIndexOne {
-  color: white;
-  width: 150px;
-  height: 40px;
-  border: none;
-  border-radius: 14px;
-  margin: 10px auto;
-  background: linear-gradient(90deg, rgba(60,158,222,1) 0%, rgba(154,49,228,1) 100%);
-  font-weight: 700;
-}
-
-.BtnIndexTwo {
-  color: white;
-  width: 150px;
-  height: 40px;
-  border: 1px solid white;
-  border-radius: 14px;
-  margin: 10px auto;
-  background: #00000000;
-  font-weight: 700;
-}
-
 // curve
 
 .Curve {
@@ -363,7 +190,7 @@ p::-webkit-scrollbar-track{
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  width: 80%;
+  width: 100%;
   margin-left: 5px;
 }
 
@@ -388,8 +215,51 @@ p::-webkit-scrollbar-track{
   outline: none;
 }
 
-.LocationSearchInput:active {
+.LocationSearchInput:focus{
   border: 1px solid;
   border-width: 0 0 2px;
   border-color: #cacad5;
+}
+
+.ContainerPlacesAutocomplete {
+  width: 90%;
+}
+
+.ContainerPlacesAutocomplete > input {
+  width: 100%;
+}
+
+.ContainerIconsSearchInput {
+  width: 10%;
+}
+
+.CloseBtn {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  padding-top: 15px;
+  margin-bottom: 0;
+}
+
+.MsgReportCreated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UploadImageWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.UploadImageLabel {
+  height: 24px;
+  cursor: pointer;
+}
+
+.UploadInput {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }

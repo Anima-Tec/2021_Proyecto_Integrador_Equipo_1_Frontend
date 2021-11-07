@@ -1,25 +1,31 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
-import Input from './singleComponent/Input';
-import Button from './singleComponent/Button';
-import SessionController from '../networking/controllers/SessionController';
-import Spinner from './singleComponent/Spinner';
-import styles from '../App.module.scss';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
+import SessionController from '../../networking/controllers/SessionController';
+import Spinner from '../UI/Spinner';
+import styles from './Logout.module.scss';
 
 const LogIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [error, setError] = useState(false);
   const history = useHistory();
   const { promiseInProgress } = usePromiseTracker();
 
+  const showError = (mayError) => {
+    setError(mayError);
+  };
+
   const onSubmit = async (data) => {
-    await trackPromise(SessionController.login(
-      data.username,
-      data.password,
-    ));
-    history.push('/inicio');
+    try {
+      await trackPromise(SessionController.login(data.username, data.password));
+      history.push('/inicio');
+    } catch (requestError) {
+      showError(true);
+    }
   };
 
   return (
@@ -51,10 +57,11 @@ const LogIn = () => {
           <div className={styles.ContainerButtonForm}>
             <Button
               styles={styles.BtnForm}
-              text={promiseInProgress ? <Spinner spinnerType="ring" moveType="spin" /> : 'Continuar>'}
+              text={promiseInProgress ? (<Spinner spinnerType="ring" moveType="spin" />) : 'Continuar>'}
               submit
             />
           </div>
+          {error && <span className={styles.error}>Las credenciales no coinciden</span>}
         </form>
         <p>
           o

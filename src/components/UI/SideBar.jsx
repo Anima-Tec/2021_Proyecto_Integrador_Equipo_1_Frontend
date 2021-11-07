@@ -5,16 +5,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Avatar from '@mui/material/Avatar';
-import SessionController from '../networking/controllers/SessionController';
-import Button from './singleComponent/Button';
-import CreateReport from './CreateReport';
-import Spinner from './singleComponent/Spinner';
-import styles from '../App.module.scss';
+import SessionController from '../../networking/controllers/SessionController';
+import Button from './Button';
+import CreateReport from './CreateReport/CreateReport';
+import Spinner from './Spinner';
+import styles from '../../App.module.scss';
+import ReportsController from '../../networking/controllers/ReportsController';
 
 const SideBar = ({
-  username, imgUser, name, surname,
+  username, imgUser, name, surname, onRefreshReports,
 }) => {
   const { promiseInProgress } = usePromiseTracker();
+  const [error, setError] = React.useState([0]);
 
   const logOut = async () => {
     await trackPromise(SessionController.logout());
@@ -31,6 +33,17 @@ const SideBar = ({
       children: `${fullName.split(' ')[0][0]}${fullName.split(' ')[1][0]}`,
     };
   }
+
+  const getNewsReports = async () => {
+    try {
+      const reports = await ReportsController.getReports();
+      onRefreshReports(reports);
+    } catch (err) {
+      setError('Hubo un error al traer los reportes');
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.SideBar}>
       <div className={styles.SideBarHeader}>
@@ -45,7 +58,7 @@ const SideBar = ({
           <li>
             <Button text="INICIO" path="/inicio" />
           </li>
-          <li><CreateReport /></li>
+          <li><CreateReport onGetNewReports={getNewsReports} /></li>
           <li>
             <Button text="MIS REPORTES" path="/misReportes" />
           </li>
@@ -72,6 +85,7 @@ SideBar.propTypes = {
   name: PropTypes.string.isRequired,
   surname: PropTypes.string.isRequired,
   imgUser: PropTypes.string,
+  onRefreshReports: PropTypes.func.isRequired,
 };
 
 export default SideBar;

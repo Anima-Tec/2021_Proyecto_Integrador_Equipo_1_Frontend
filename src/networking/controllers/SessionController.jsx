@@ -5,12 +5,13 @@ import { generateURL } from '../Routes';
 import TokenService from '../TokenService';
 
 class SessionController {
-  static async login(username, password) {
-    const response = await axios.post(generateURL('/login'), {
+  static login(username, password) {
+    return axios.post(generateURL('/login'), {
       username,
       password,
+    }).then((res) => {
+      TokenService.setUser(res.data);
     });
-    TokenService.setUser(response.data);
   }
 
   // eslint-disable-next-line camelcase

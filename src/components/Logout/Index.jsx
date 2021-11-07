@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
-import Button from './singleComponent/Button';
-import styles from '../App.module.scss';
+import Button from '../UI/Button';
+import styles from './Logout.module.scss';
 
 const Index = () => (
   <div className={styles.ContainerAllIndex}>

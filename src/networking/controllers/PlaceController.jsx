@@ -15,10 +15,11 @@ class PlaceController {
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
-    console.log(response);
     const deSerializedReports = new Place(
       PlaceSerializer.deSerializePlace(
-        response.data.data.place, response.data.data.assessment.assessment,
+        response.data.data.place,
+        response.data.data.assessment,
+        response.data.data.quantity,
       ),
     );
     return deSerializedReports;
@@ -30,7 +31,6 @@ class PlaceController {
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
-    console.log(response);
     const deSerializedReports = await response.data.data.map(
       (report) => new PlaceReport(PlaceSerializer.deSerializePlaceReport(report)),
     );

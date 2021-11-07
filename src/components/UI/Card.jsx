@@ -7,40 +7,22 @@ import {
   Modal, Rating,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-named-as-default
 import AddressService from '../../networking/AddressService';
 import ReportsController from '../../networking/controllers/ReportsController';
-import PlaceController from '../../networking/controllers/PlaceController';
-/* import styles from '../../App.module.scss'; */
 
-export default function RelatedReports() {
+export default function Cards({ filteredData }) {
   const history = useHistory();
-  const [allReports, setAllReports] = React.useState([0]);
   const [oneReport, setOneReport] = React.useState([0]);
   const [modalLoading, setModalLoading] = React.useState(true);
-  const [dataLoading, setDataLoading] = React.useState(true);
-  const [reportsError, setReportsError] = React.useState('');
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => { setOpen(false); setModalLoading(true); };
 
-  React.useEffect(() => {
-    const getReportes = async () => {
-      try {
-        const placeReports = await PlaceController.getPlaceReports(AddressService.getAddress());
-        setAllReports(placeReports);
-        setDataLoading(false);
-      } catch (err) {
-        setReportsError('Hubo un error al traer los reportes');
-        console.log(reportsError);
-      }
-    };
-    getReportes();
-  }, []);
-
   const getReport = async (id) => {
     handleOpen();
+    console.log(filteredData[0]);
     const report = await ReportsController.getReport(id);
     setOneReport(report[0]);
     setModalLoading(false);
@@ -49,6 +31,20 @@ export default function RelatedReports() {
   const saveAddress = async (address) => {
     await AddressService.setAddress(address);
     history.push(`places/${address}`);
+  };
+
+  const dateAgo = (date) => {
+    const times = date.split(' ');
+    if (Number(times[4]) === 0) {
+      return (`Hace ${times[6]} ${times[7]} ${times[8]} ${times[9]} ${times[10]} ${times[11]}`);
+    } if (Number(times[0]) > 0) {
+      return (`Hace ${times[0]} ${times[1]} ${times[2]} ${times[3]}`);
+    } if (Number(times[2]) > 0) {
+      return (`Hace ${times[2]} ${times[3]} ${times[4]} ${times[5]}`);
+    } if (Number(times[4]) > 0) {
+      return (`Hace ${times[4]} ${times[5]}`);
+    }
+    return null;
   };
 
   const boxStyle = {
@@ -79,10 +75,12 @@ export default function RelatedReports() {
 
   return (
     <>
-      { allReports.map((report) => (
-        <Card sx={{
-          width: 660, height: 400, margin: 8, borderRadius: 7,
-        }}
+      { filteredData.length > 0 ? filteredData.map((report) => (
+        <Card
+          key={report.id}
+          sx={{
+            width: 660, height: 400, margin: 8, borderRadius: 7,
+          }}
         >
           <CardActionArea
             onClick={() => getReport(report.id)}
@@ -90,50 +88,33 @@ export default function RelatedReports() {
               width: 660, height: 400, borderRadius: 7,
             }}
           >
-            {dataLoading
-              ? <Skeleton sx={{ height: '70%' }} animation="wave" variant="rectangular" />
-              : (
-                <CardMedia
-                  sx={{ height: '70%' }}
-                  component="img"
-                  height="140"
-                  image="https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg"
-                  alt={`${report.address} ${report.type_report}`}
-                />
-              )}
-
+            <CardMedia
+              sx={{ height: '70%' }}
+              component="img"
+              height="140"
+              image="https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg"
+              alt={`${report.address} ${report.type_report}`}
+            />
             <CardContent sx={{
               height: '30%', display: 'flex', width: '100%', alignItems: 'center', padding: '0px 10%',
             }}
             >
-              {dataLoading
-                ? <Skeleton animation="wave" variant="circular" width={50} height={50} />
-                : <Avatar {...stringAvatar('Andrew Cabrera')} src="/imgUser.png" />}
+              <Avatar {...stringAvatar('Andrew Cabrera')} src="/imgUser.png" />
               <Box sx={{
                 display: 'flex', flexDirection: 'column', paddingLeft: 3, width: '50%',
               }}
               >
-                {dataLoading ? (
-                  <>
-                    <Skeleton animation="wave" height={10} />
-                    <Skeleton animation="wave" height={10} width="40%" />
-                  </>
-                ) : (
-                  <>
-                    {' '}
-                    <Typography sx={{ color: '#3C9EDE', fontSize: '1.2rem' }} variant="h5" component="div">
-                      {capitalizarPrimeraLetra(`${report.address}`)}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {report.type_report}
-                    </Typography>
-                  </>
-                )}
+                <Typography sx={{ color: '#3C9EDE', fontSize: '1.2rem' }} variant="h5" component="div">
+                  {capitalizarPrimeraLetra(`${report.address}`)}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {dateAgo(report.date_ago)}
+                </Typography>
               </Box>
             </CardContent>
           </CardActionArea>
         </Card>
-      ))}
+      )) : 'No hay reportes aún'}
       <Modal
         open={open}
         onClose={handleClose}
@@ -169,7 +150,7 @@ export default function RelatedReports() {
                   </>
                 ) : (
                   <>
-                    <Typography id="modal-modal-title" sx={{ color: '#9A31E4', marginRight: '10px' }} variant="h6" component="h2" onClick={() => saveAddress(oneReport.address)}>
+                    <Typography id="modal-modal-title" sx={{ color: '#9A31E4', marginRight: '10px', cursor: 'pointer' }} variant="h6" component="h2" onClick={() => saveAddress(oneReport.address)}>
                       {capitalizarPrimeraLetra(`${oneReport.address}`)}
                     </Typography>
                     <Rating
@@ -250,3 +231,8 @@ export default function RelatedReports() {
     </>
   );
 }
+
+Cards.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  filteredData: PropTypes.array.isRequired,
+};

@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style *//* eslint-disable max-len */
 import React from 'react';
-import styles from '../App.module.scss';
+import styles from './Login.module.scss';
 
-const Configuracion = () => (
+const Perfil = () => (
   <div className={styles.ContainerHomeData}>
-    <p>Here must be apear the configuration</p>
+    <p>Here must be apear the profile</p>
   </div>
 );
 
-export default Configuracion;
+export default Perfil;

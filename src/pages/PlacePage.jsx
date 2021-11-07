@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style *//* eslint-disable arrow-body-style */
 import React from 'react';
 /* import TokenService from '../networking/TokenServie'; */
-import Place from '../components/Place';
+import Place from '../components/Login/InfoPlace';
 import styles from '../App.module.scss';
 
 const PlacePage = () => {

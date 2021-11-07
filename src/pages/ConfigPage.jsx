@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style *//* eslint-disable arrow-body-style */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import SideBar from '../components/SideBar';
+import SideBar from '../components/UI/SideBar';
 /* import TokenService from '../networking/TokenServie'; */
 import styles from '../App.module.scss';
-import BottomNav from '../components/singleComponent/BottomNav';
-import Configuracion from '../components/Configuracion';
+import BottomNav from '../components/UI/BottomNav';
+import Configuracion from '../components/Login/Configuracion';
 
 const ConfigPage = () => {
 /*   const data = TokenService.getUser();
