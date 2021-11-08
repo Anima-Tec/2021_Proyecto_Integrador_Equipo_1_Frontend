@@ -8,6 +8,7 @@ import LogInPage from '../pages/LogInPage';
 import HomePage from '../pages/HomePage';
 import PerfilPage from '../pages/PerfilPage';
 import MyReportsPage from '../pages/MyReportsPage';
+import ReporteredReportsPage from '../pages/ReporteredReportsPage';
 import ConfigPage from '../pages/ConfigPage';
 import PlacePage from '../pages/PlacePage';
 import RoutesType from './RoutesType';
@@ -28,6 +29,9 @@ const Routes = () => (
     </RoutesType.PrivateRouter>
     <RoutesType.PrivateRouter path="/misReportes" redirect="/login">
       <MyReportsPage />
+    </RoutesType.PrivateRouter>
+    <RoutesType.PrivateRouter path="/reportes-reportados" redirect="/login">
+      <ReporteredReportsPage />
     </RoutesType.PrivateRouter>
     <RoutesType.PrivateRouter path="/configuracion" redirect="/login">
       <ConfigPage />

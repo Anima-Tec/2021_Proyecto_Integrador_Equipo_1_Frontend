@@ -16,7 +16,7 @@ class SessionController {
 
   // eslint-disable-next-line camelcase
   static async Signup(name, surname, username, birth_date, email, password, password_confirmation) {
-    const response = await axios.post(generateURL('/register'), {
+    return axios.post(generateURL('/register'), {
       name,
       surname,
       birth_date,
@@ -26,8 +26,9 @@ class SessionController {
       password_confirmation,
     }, {
       headers: { Accept: 'application/json' },
+    }).then((res) => {
+      TokenService.setUser(res.data);
     });
-    TokenService.setUser(response.data);
   }
 
   static async logout() {

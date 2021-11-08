@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style *//* eslint-disable arrow-body-style */
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import SideBar from '../components/UI/SideBar';
@@ -15,9 +15,11 @@ const ConfigPage = () => {
   });
   return (
     <div className={styles.ContainerHome}>
-      { isDesktopOrLaptop
-        ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
-        : <BottomNav /> }
+      <div className={styles.ContainerMenu}>
+        { isDesktopOrLaptop
+          ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
+          : <BottomNav /> }
+      </div>
       <Configuracion />
     </div>
   );

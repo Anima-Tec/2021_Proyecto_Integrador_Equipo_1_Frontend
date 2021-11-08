@@ -10,7 +10,7 @@ import ExtendedReport from '../../models/ExtendedReport';
 
 class ReportsController {
   static async createReport(
-    date, description, type_report, name_place, address_place, assessment,
+    date, description, type_report, name_place, address_place, assessment, photo,
   ) {
     const data = TokenService.getUser();
     const response = await axios.post(generateURL('/report'), {
@@ -21,6 +21,7 @@ class ReportsController {
       name_place,
       address_place,
       assessment,
+      photo,
     },
     {
       headers: { Authorization: `Bearer ${data.data.token}` },
@@ -52,14 +53,14 @@ class ReportsController {
     return deSerializedReports;
   }
 
-  static async getReportByAddress(address) {
+  static async getReporteredReports() {
     const data = TokenService.getUser();
-    const response = await axios.get(generateURL(`/place/reports/${address}`),
+    const response = await axios.get(generateURL('/admin/view-reports'),
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
     const deSerializedReports = await response.data.data.map(
-      (report) => new ExtendedReport(ReportSerializer.deSerializeReport(report)),
+      (report) => new Report(ReportSerializer.deSerializeReports(report)),
     );
     return deSerializedReports;
   }
@@ -74,6 +75,17 @@ class ReportsController {
       (report) => new Report(ReportSerializer.deSerializeReports(report)),
     );
     return deSerializedReports;
+  }
+
+  static async reportReport(id) {
+    const data = TokenService.getUser();
+    await axios.patch(generateURL('/person/report'),
+      {
+        id,
+      },
+      {
+        headers: { Authorization: `Bearer ${data.data.token}` },
+      });
   }
 }
 

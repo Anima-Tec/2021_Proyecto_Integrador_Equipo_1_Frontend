@@ -1,30 +1,31 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import {
   Card, CardContent, CardMedia, CardActionArea, Typography, Box, Avatar, Skeleton,
-  Modal, Rating,
+  Modal, Rating, Popover, IconButton, Button,
 } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-named-as-default
 import AddressService from '../../networking/AddressService';
 import ReportsController from '../../networking/controllers/ReportsController';
 
-export default function Cards({ filteredData }) {
+const Cards = ({ filteredData }) => {
   const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [oneReport, setOneReport] = React.useState([0]);
   const [modalLoading, setModalLoading] = React.useState(true);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => { setOpen(false); setModalLoading(true); };
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => { setOpenModal(false); setModalLoading(true); };
 
   const getReport = async (id) => {
     handleOpen();
     console.log(filteredData[0]);
     const report = await ReportsController.getReport(id);
     setOneReport(report[0]);
+    console.log(report);
     setModalLoading(false);
   };
 
@@ -34,17 +35,37 @@ export default function Cards({ filteredData }) {
   };
 
   const dateAgo = (date) => {
-    const times = date.split(' ');
-    if (Number(times[4]) === 0) {
-      return (`Hace ${times[6]} ${times[7]} ${times[8]} ${times[9]} ${times[10]} ${times[11]}`);
-    } if (Number(times[0]) > 0) {
-      return (`Hace ${times[0]} ${times[1]} ${times[2]} ${times[3]}`);
-    } if (Number(times[2]) > 0) {
-      return (`Hace ${times[2]} ${times[3]} ${times[4]} ${times[5]}`);
-    } if (Number(times[4]) > 0) {
-      return (`Hace ${times[4]} ${times[5]}`);
+    try {
+      const times = date.split(' ');
+      if (Number(times[4]) === 0) {
+        return (`Hace ${times[6]} ${times[7]} ${times[8]} ${times[9]} ${times[10]} ${times[11]}`);
+      } if (Number(times[0]) > 0) {
+        return (`Hace ${times[0]} ${times[1]} ${times[2]} ${times[3]}`);
+      } if (Number(times[2]) > 0) {
+        return (`Hace ${times[2]} ${times[3]} ${times[4]} ${times[5]}`);
+      } if (Number(times[4]) > 0) {
+        return (`Hace ${times[4]} ${times[5]}`);
+      }
+    } catch (error) {
+      return console.log('no hay reportes aún');
     }
+
     return null;
+  };
+
+  const HandleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const HandleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const idPopover = open ? 'simple-popover' : undefined;
+
+  const reportReport = async (id) => {
+    await ReportsController.reportReport(id);
   };
 
   const boxStyle = {
@@ -92,7 +113,7 @@ export default function Cards({ filteredData }) {
               sx={{ height: '70%' }}
               component="img"
               height="140"
-              image="https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg"
+              image={report.photo || 'default.jpg'}
               alt={`${report.address} ${report.type_report}`}
             />
             <CardContent sx={{
@@ -116,7 +137,7 @@ export default function Cards({ filteredData }) {
         </Card>
       )) : 'No hay reportes aún'}
       <Modal
-        open={open}
+        open={openModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -128,7 +149,10 @@ export default function Cards({ filteredData }) {
               <CardMedia
                 sx={{ height: '40%' }}
                 component="img"
-                image="https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg"
+                image={
+                  oneReport.photo
+                  || 'https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg'
+                }
                 alt={`${oneReport.address} ${oneReport.type_report}`}
               />
             )}
@@ -222,6 +246,26 @@ export default function Cards({ filteredData }) {
                       Escrito por
                       <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{capitalizarPrimeraLetra(`${oneReport.username}`)}</Typography>
                     </Typography>
+                    <IconButton aria-describedby={idPopover} onClick={HandleClick}>
+                      <MoreVertIcon />
+                    </IconButton>
+                    <Popover
+                      id={idPopover}
+                      open={open}
+                      anchorEl={anchorEl}
+                      onClose={HandleClose}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                      }}
+                    >
+                      <Button variant="contained" sx={{ p: 2 }} onClick={() => reportReport(oneReport.id)}>Reportar</Button>
+
+                    </Popover>
                   </Box>
                 </>
               )}
@@ -230,9 +274,11 @@ export default function Cards({ filteredData }) {
       </Modal>
     </>
   );
-}
+};
 
 Cards.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   filteredData: PropTypes.array.isRequired,
 };
+
+export default Cards;

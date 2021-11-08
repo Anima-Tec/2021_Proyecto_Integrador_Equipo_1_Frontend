@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import SideBar from '../components/UI/SideBar';
 import BasicSpeedDial from '../components/UI/SpeedDial';
 /* import TokenService from '../networking/TokenServie'; */
-import styles from '../App.module.scss';
+import styles from './HomePage.module.scss';
 import BottomNav from '../components/UI/BottomNav';
 import Home from '../components/Login/Home';
 import ReportsController from '../networking/controllers/ReportsController';
@@ -21,7 +21,6 @@ const HomePage = () => {
     const getReportes = async () => {
       try {
         const reports = await ReportsController.getReports();
-        console.log(data);
         setAllReports(reports);
         setDataLoading(false);
       } catch (err) {
@@ -41,19 +40,19 @@ const HomePage = () => {
   });
   return (
     <div className={styles.ContainerHome}>
-      { userType === 'admin' ? (
+      { userType === 'normal' ? (
         <>
-          <div className={styles.ContainerMenu}>
-            { isDesktopOrLaptop
-              ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" onRefreshReports={refreshReports} />
-              : <BottomNav onRefreshReports={refreshReports} /> }
+          <div className={styles.ContainerAdminMenu}>
+            <BasicSpeedDial />
           </div>
           <Home allReports={allReports} dataLoading={dataLoading} />
         </>
       ) : (
         <>
           <div className={styles.ContainerMenu}>
-            <BasicSpeedDial />
+            { isDesktopOrLaptop
+              ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" onRefreshReports={refreshReports} />
+              : <BottomNav onRefreshReports={refreshReports} /> }
           </div>
           <Home allReports={allReports} dataLoading={dataLoading} />
         </>

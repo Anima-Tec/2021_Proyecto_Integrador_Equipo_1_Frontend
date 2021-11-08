@@ -24,7 +24,7 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      trackPromise(SessionController.Signup(
+      await trackPromise(SessionController.Signup(
         data.name,
         data.surname,
         data.username,
@@ -111,7 +111,11 @@ const SignUp = () => {
             validate={(value) => value === watch('password') || 'Las contraseñas no coinciden'}
             errors={errors.password_confirmation || null}
           />
-          {error && <span className={styles.error}>Las credenciales no coinciden</span>}
+          {error && (
+          <span className={styles.error}>
+            El nombre de usuario o el correo electronico ingresados se encuentran en uso
+          </span>
+          )}
 
           <div className={styles.ContainerButtonForm}>
             <Button

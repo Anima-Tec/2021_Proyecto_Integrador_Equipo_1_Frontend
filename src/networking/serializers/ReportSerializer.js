@@ -15,7 +15,7 @@ class ReportSerializer {
   static deSerializeReport(data) {
     return {
       id: data.id,
-      date: data.date,
+      date_ago: data.date_ago,
       type_report: data.type_report,
       description: data.description,
       assessment: data.assessment,

@@ -1,15 +1,13 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
-import SideBar from '../components/UI/SideBar';
+/* import { useMediaQuery } from 'react-responsive'; */
+import BasicSpeedDial from '../components/UI/SpeedDial';
 /* import TokenService from '../networking/TokenServie'; */
-import styles from './MyReportsPage.module.scss';
-import BottomNav from '../components/UI/BottomNav';
-import MyReports from '../components/Login/MyReports';
+import styles from './HomePage.module.scss';
+import ReporteredReports from '../components/Login/ReporteredReports';
 import ReportsController from '../networking/controllers/ReportsController';
-import TokenService from '../networking/TokenService';
 
-const MyReportsPage = () => {
+const ReporteredReportsPage = () => {
 /*   const data = TokenService.getUser();
   console.log(data); */
   const [allReports, setAllReports] = React.useState([0]);
@@ -17,10 +15,10 @@ const MyReportsPage = () => {
   const [error, setError] = React.useState('');
 
   React.useEffect(async () => {
-    const data = await TokenService.getUser();
     const getReportes = async () => {
       try {
-        const reports = await ReportsController.getMisReports(data.data.userId);
+        const reports = await ReportsController.getReporteredReports();
+        console.log(reports);
         setAllReports(reports);
         setDataLoading(false);
       } catch (err) {
@@ -31,18 +29,16 @@ const MyReportsPage = () => {
     getReportes();
   }, []);
 
-  const isDesktopOrLaptop = useMediaQuery({
+  /* const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 768px)',
-  });
+  }); */
   return (
     <div className={styles.ContainerHome}>
-      <div className={styles.ContainerMenu}>
-        { isDesktopOrLaptop
-          ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" />
-          : <BottomNav /> }
+      <div className={styles.ContainerAdminMenu}>
+        <BasicSpeedDial />
       </div>
-      <MyReports allReports={allReports} dataLoading={dataLoading} />
+      <ReporteredReports allReports={allReports} dataLoading={dataLoading} />
     </div>
   );
 };
-export default MyReportsPage;
+export default ReporteredReportsPage;

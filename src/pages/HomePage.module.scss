@@ -1,0 +1,18 @@
+.ContainerHome {
+    background-color: #6F12E7;
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+.ContainerMenu {
+    width: 30%;
+    z-index: 2;
+}
+
+.ContainerAdminMenu {
+    width: 5%;
+    z-index: 2;
+}

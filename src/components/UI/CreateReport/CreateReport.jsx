@@ -22,6 +22,7 @@ export default function CreateReport({ onGetNewReports }) {
   const handleClose = () => { setOpen(false); };
 
   const createReport = async (data) => {
+    console.log(data);
     const response = await trackPromise(ReportsController.createReport(
       data.date,
       data.description,
@@ -29,6 +30,7 @@ export default function CreateReport({ onGetNewReports }) {
       data.name_place,
       data.address_place,
       data.assessment,
+      data.photo,
     ));
     setSuccess(response.data.success);
   };

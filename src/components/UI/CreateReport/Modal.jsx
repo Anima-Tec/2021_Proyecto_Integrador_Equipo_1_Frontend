@@ -20,6 +20,7 @@ const ModalCreateReport = ({
   const [statusEdit, setStatusEdit] = React.useState(false);
   const [addressValue, setAddressValue] = React.useState('Ubicación');
   const [nameValue, setNameValue] = React.useState('Ubicación');
+  const [photoValue, setPhotoValue] = React.useState(null);
   const defaultValues = () => {
     setAssessmentValue(2);
     setSelectedValue('');
@@ -27,6 +28,7 @@ const ModalCreateReport = ({
     setStatusEdit(false);
     setAddressValue('Ubicación');
     setNameValue('Ubicación');
+    setPhotoValue(null);
   };
 
   const handleChange = (address) => {
@@ -53,6 +55,10 @@ const ModalCreateReport = ({
     setTextValue(event.target.value);
   };
 
+  const photoReturn = (photo) => {
+    setPhotoValue(photo);
+  };
+
   const getData = async () => {
     handleClose();
     defaultValues();
@@ -64,6 +70,7 @@ const ModalCreateReport = ({
       name_place: nameValue,
       address_place: addressValue,
       assessment: assessmentValue,
+      photo: photoValue,
     };
     createReport(data);
   };
@@ -222,7 +229,7 @@ const ModalCreateReport = ({
               justifyContent: 'space-evenly',
             }}
             >
-              <UploadImage />
+              <UploadImage photo={photoValue} photoReturn={photoReturn} />
             </Box>
           </Box>
           <RadioGroup
