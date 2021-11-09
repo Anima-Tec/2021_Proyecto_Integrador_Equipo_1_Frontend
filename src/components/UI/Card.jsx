@@ -22,10 +22,10 @@ const Cards = ({ filteredData }) => {
 
   const getReport = async (id) => {
     handleOpen();
-    console.log(filteredData[0]);
+    filteredData.map((report) => console.log(report));
     const report = await ReportsController.getReport(id);
     setOneReport(report[0]);
-    console.log(report);
+    console.log(report[0]);
     setModalLoading(false);
   };
 
@@ -104,7 +104,7 @@ const Cards = ({ filteredData }) => {
           }}
         >
           <CardActionArea
-            onClick={() => getReport(report.id)}
+            onClick={() => { console.log(report.id); getReport(report.id); }}
             sx={{
               width: 660, height: 400, borderRadius: 7,
             }}
@@ -150,7 +150,7 @@ const Cards = ({ filteredData }) => {
                 sx={{ height: '40%' }}
                 component="img"
                 image={
-                  oneReport.photo
+                  oneReport.photo_place
                   || 'https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg'
                 }
                 alt={`${oneReport.address} ${oneReport.type_report}`}
@@ -255,16 +255,21 @@ const Cards = ({ filteredData }) => {
                       anchorEl={anchorEl}
                       onClose={HandleClose}
                       anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
+                        vertical: 'center',
+                        horizontal: 'right',
                       }}
                       transformOrigin={{
                         vertical: 'top',
                         horizontal: 'left',
                       }}
                     >
-                      <Button variant="contained" sx={{ p: 2 }} onClick={() => reportReport(oneReport.id)}>Reportar</Button>
-
+                      <Button
+                        variant="contained"
+                        sx={{ p: 2, backgroundColor: '#6F12E7' }}
+                        onClick={() => reportReport(oneReport.id)}
+                      >
+                        Reportar
+                      </Button>
                     </Popover>
                   </Box>
                 </>

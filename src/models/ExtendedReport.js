@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-class Report {
+class ExtendedReport {
   constructor(data) {
     this.id = data.id;
     this.date_ago = data.date_ago;
@@ -8,7 +8,8 @@ class Report {
     this.assessment = data.assessment;
     this.address = data.address;
     this.username = data.username;
-    this.photo = data.photo;
+    this.photo_place = data.photo_place;
+    this.photo_profile = data.photo_profile;
   }
 }
-export default Report;
+export default ExtendedReport;

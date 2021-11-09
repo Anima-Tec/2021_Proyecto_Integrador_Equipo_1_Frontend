@@ -8,7 +8,8 @@ class ReportSerializer {
       description: data.description,
       assessment: data.assessment,
       address: data.address,
-      photo: data.photo,
+      photo_place: data.photo_place,
+      photo_profile: data.photo_profile,
     };
   }
 
@@ -21,7 +22,8 @@ class ReportSerializer {
       assessment: data.assessment,
       address: data.address,
       username: data.username,
-      photo: data.photo,
+      photo_place: data.photo_place,
+      photo_profile: data.photo_profile,
     };
   }
 }

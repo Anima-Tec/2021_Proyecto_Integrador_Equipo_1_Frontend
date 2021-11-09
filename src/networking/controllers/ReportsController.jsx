@@ -35,6 +35,7 @@ class ReportsController {
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
+    console.log(response);
     const deSerializedReports = await response.data.data.map(
       (report) => new Report(ReportSerializer.deSerializeReports(report)),
     );
@@ -47,6 +48,7 @@ class ReportsController {
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
+    console.log(response);
     const deSerializedReports = await response.data.data.map(
       (report) => new ExtendedReport(ReportSerializer.deSerializeReport(report)),
     );
@@ -62,6 +64,7 @@ class ReportsController {
     const deSerializedReports = await response.data.data.map(
       (report) => new Report(ReportSerializer.deSerializeReports(report)),
     );
+    console.log(deSerializedReports);
     return deSerializedReports;
   }
 
@@ -79,9 +82,10 @@ class ReportsController {
 
   static async reportReport(id) {
     const data = TokenService.getUser();
-    await axios.patch(generateURL('/person/report'),
+    await axios.post(generateURL('/person/report'),
       {
-        id,
+        id_report: id,
+        id_person: data.data.userId,
       },
       {
         headers: { Authorization: `Bearer ${data.data.token}` },

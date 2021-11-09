@@ -7,7 +7,8 @@ class Report {
     this.description = data.description;
     this.assessment = data.assessment;
     this.address = data.address;
-    this.photo = data.photo;
+    this.photo_place = data.photo_place;
+    this.photo_profile = data.photo_profile;
   }
 }
 export default Report;

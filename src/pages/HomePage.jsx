@@ -8,12 +8,14 @@ import styles from './HomePage.module.scss';
 import BottomNav from '../components/UI/BottomNav';
 import Home from '../components/Login/Home';
 import ReportsController from '../networking/controllers/ReportsController';
+import PersonController from '../networking/controllers/PersonController';
 import TokenService from '../networking/TokenService';
 
 const HomePage = () => {
   const data = TokenService.getUser();
   const userType = data.data.typeUser;
   const [allReports, setAllReports] = React.useState([0]);
+  const [person, setPerson] = React.useState([0]);
   const [dataLoading, setDataLoading] = React.useState(true);
   const [error, setError] = React.useState('');
 
@@ -21,7 +23,9 @@ const HomePage = () => {
     const getReportes = async () => {
       try {
         const reports = await ReportsController.getReports();
+        const persons = await PersonController.getPerson();
         setAllReports(reports);
+        setPerson(persons[0]);
         setDataLoading(false);
       } catch (err) {
         setError('Hubo un error al traer los reportes');
@@ -51,7 +55,14 @@ const HomePage = () => {
         <>
           <div className={styles.ContainerMenu}>
             { isDesktopOrLaptop
-              ? <SideBar username="Andy12" name="Andrew" surname="Cabrera" onRefreshReports={refreshReports} />
+              ? (
+                <SideBar
+                  username={person.username}
+                  name={person.name}
+                  surname={person.surname}
+                  onRefreshReports={refreshReports}
+                />
+              )
               : <BottomNav onRefreshReports={refreshReports} /> }
           </div>
           <Home allReports={allReports} dataLoading={dataLoading} />
