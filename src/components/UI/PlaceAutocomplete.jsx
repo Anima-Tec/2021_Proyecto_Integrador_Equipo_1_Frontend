@@ -70,24 +70,39 @@ const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
             {({
               getInputProps, suggestions, getSuggestionItemProps, loading,
             }) => (
-              <div className={styles.ContainerLocationSearchInput}>
-                <input
-                  className={styles.LocationSearchInput}
-                  {...getInputProps({
-                    placeholder: 'Search Places ...',
-                    onKeyDown: (e) => { if (e.keyCode === 13) searchAddress(); },
-                  })}
-                />
+              <>
+                <div className={styles.ContainerLocationSearchInput}>
+                  <input
+                    className={styles.LocationSearchInput}
+                    {...getInputProps({
+                      placeholder: 'Search Places ...',
+                      onKeyDown: (e) => {
+                        if (e.keyCode === 13) searchAddress();
+                      },
+                    })}
+                  />
+                  {addressValue !== ''
+                  && (
+                    <div className={styles.ContainerIconsSearchInput}>
+                      <IconButton onClick={clearAddress} type="submit" sx={{ p: '10px' }} aria-label="search">
+                        <ClearRoundedIcon />
+                      </IconButton>
+                      <IconButton onClick={searchAddress} type="submit" sx={{ p: '10px' }} aria-label="search">
+                        <SearchIcon />
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
                 <div className="autocomplete-dropdown-container">
                   {loading && <div>Loading...</div>}
                   {suggestions.map((suggestion) => {
                     const className = suggestion.active
                       ? 'suggestion-item--active'
-                      : 'suggestion-item';
-                      // inline style for demonstration purpose
+                      : 'suggestion-item--active';
+                    // inline style for demonstration purpose
                     const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                      ? { backgroundColor: '#fafafa', cursor: 'pointer', marginLeft: '10px' }
+                      : { backgroundColor: '#ffffff', cursor: 'pointer', marginLeft: '10px' };
                     return (
                       <div
                         {...getSuggestionItemProps(suggestion, {
@@ -96,7 +111,7 @@ const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
                         })}
                       >
                         <span>
-                          { suggestion.terms.length > 1
+                          {suggestion.terms.length > 1
                             ? `${suggestion.terms[0].value}, ${suggestion.terms[1].value}`
                             : suggestion.terms[0].value}
                         </span>
@@ -104,21 +119,12 @@ const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
                     );
                   })}
                 </div>
-              </div>
+
+              </>
+
             )}
           </PlacesAutocomplete>
         </div>
-        { addressValue !== ''
-          && (
-            <div className={styles.ContainerIconsSearchInput}>
-              <IconButton onClick={clearAddress} type="submit" sx={{ p: '10px' }} aria-label="search">
-                <ClearRoundedIcon />
-              </IconButton>
-              <IconButton onClick={searchAddress} type="submit" sx={{ p: '10px' }} aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </div>
-          )}
       </Paper>
     </>
   );

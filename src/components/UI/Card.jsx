@@ -113,14 +113,14 @@ const Cards = ({ filteredData }) => {
               sx={{ height: '70%' }}
               component="img"
               height="140"
-              image={report.photo || 'default.jpg'}
+              image={report.photo || '/default.jpg'}
               alt={`${report.address} ${report.type_report}`}
             />
             <CardContent sx={{
               height: '30%', display: 'flex', width: '100%', alignItems: 'center', padding: '0px 10%',
             }}
             >
-              <Avatar {...stringAvatar('Andrew Cabrera')} src="/imgUser.png" />
+              <Avatar {...stringAvatar('Andrew Cabrera')} src="/defaultUserImage.png" />
               <Box sx={{
                 display: 'flex', flexDirection: 'column', paddingLeft: 3, width: '50%',
               }}
@@ -135,7 +135,7 @@ const Cards = ({ filteredData }) => {
             </CardContent>
           </CardActionArea>
         </Card>
-      )) : 'No hay reportes aún'}
+      )) : <h1>No hay reportes aún</h1>}
       <Modal
         open={openModal}
         onClose={handleClose}
@@ -151,7 +151,7 @@ const Cards = ({ filteredData }) => {
                 component="img"
                 image={
                   oneReport.photo_place
-                  || 'https://www.hola.com/imagenes/estar-bien/20210217184541/gatos-gestos-lenguaje-significado/0-922-380/gatos-gestos-m.jpg'
+                  || '/default.jpg'
                 }
                 alt={`${oneReport.address} ${oneReport.type_report}`}
               />
@@ -241,7 +241,7 @@ const Cards = ({ filteredData }) => {
                     alignItems: 'center',
                   }}
                   >
-                    <Avatar {...stringAvatar('Andrew Cabrera')} src="/imgUser.png" />
+                    <Avatar {...stringAvatar('Andrew Cabrera')} src="/defaultUserImage.png" />
                     <Typography variant="body2" sx={{ marginLeft: '20px' }}>
                       Escrito por
                       <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{capitalizarPrimeraLetra(`${oneReport.username}`)}</Typography>

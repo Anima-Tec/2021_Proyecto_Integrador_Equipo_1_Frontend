@@ -61,7 +61,11 @@ const LogIn = () => {
               submit
             />
           </div>
-          {error && <span className={styles.error}>Las credenciales no coinciden</span>}
+          {error && (
+          <div className={styles.FormErrors}>
+            <span className={styles.error}>Las credenciales no coinciden</span>
+          </div>
+          )}
         </form>
         <p>
           o
