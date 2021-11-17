@@ -43,7 +43,18 @@ class ReportsController {
   }
 
   static async getReport(id) {
-    const data = TokenService.getUser();
+    const data = await TokenService.getUser();
+    if (data.data.typeUser === 'admin') {
+      const response = await axios.get(generateURL(`/reportered/${id}`),
+        {
+          headers: { Authorization: `Bearer ${data.data.token}` },
+        });
+      console.log(response);
+      const deSerializedReports = await response.data.data.map(
+        (report) => new ExtendedReport(ReportSerializer.deSerializeReport(report)),
+      );
+      return deSerializedReports;
+    }
     const response = await axios.get(generateURL(`/report/${id}`),
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
