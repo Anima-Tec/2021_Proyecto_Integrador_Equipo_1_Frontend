@@ -1,0 +1,45 @@
+.ContainerPlaceData {
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .RelatedReportsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .PlaceSectionUser {
+    width: 100%;
+    height: 20%;
+    background-color: transparent;
+  }
+  
+  .PlaceSectionPlace {
+    height: 10%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .AssessmentWrapper, .AmountRelatedReportsWrapper, .UserDataWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .PlaceSectionReports {
+    min-height: 70%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(84,60,222,1) 0%, rgba(154,49,228,1) 100%);
+  }
+
+  .BackBtn {
+    position: absolute;
+    left: 20px;
+    top: -5px;
+    padding-top: 15px;
+    margin-bottom: 0;
+  }
+  

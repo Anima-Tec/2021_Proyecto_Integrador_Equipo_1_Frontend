@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
-import SignUp from '../components/SignUp';
+import SignUp from '../components/Logout/SignUp';
 
 const SignUpPage = () => (
   <SignUp />

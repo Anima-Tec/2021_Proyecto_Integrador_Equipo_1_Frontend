@@ -3,35 +3,48 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import Input from './singleComponent/Input';
-import Button from './singleComponent/Button';
-import SessionController from '../networking/controllers/SessionController';
-import styles from '../App.module.scss';
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
+import SessionController from '../../networking/controllers/SessionController';
+import Spinner from '../UI/Spinner';
+import styles from './Logout.module.scss';
 
 const SignUp = () => {
   const {
     register, handleSubmit, formState: { errors }, watch,
   } = useForm();
+  const [error, setError] = React.useState(false);
   const history = useHistory();
+  const { promiseInProgress } = usePromiseTracker();
+
+  const showError = (mayError) => {
+    setError(mayError);
+  };
 
   const onSubmit = async (data) => {
-    await SessionController.Signup(
-      data.name,
-      data.surname,
-      data.username,
-      data.birth_date,
-      data.email,
-      data.password,
-      data.password_confirmation,
-    );
-    history.push('/inicio');
+    try {
+      await trackPromise(SessionController.Signup(
+        data.name,
+        data.surname,
+        data.username,
+        data.birth_date,
+        data.email,
+        data.password,
+        data.password_confirmation,
+      ));
+      history.push('/inicio');
+    } catch (requestError) {
+      showError(true);
+    }
   };
 
   return (
     <div className={styles.ContainerAllRegister}>
       <div className={styles.ContainerGlobal}>
-        <div className={styles.ContainerSignUpTitle}>
-          <h1>Hola! Comenzemos.</h1>
+        <div className={styles.ContainerTitleForm}>
+          <p> ¡Hola! </p>
+          <h1>¡Empecemos!</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -39,7 +52,6 @@ const SignUp = () => {
             <Input
               label="nombre"
               name="name"
-              width="212px"
               register={register}
               required="Debe ingresar un nombre"
               errors={errors.name || null}
@@ -48,7 +60,6 @@ const SignUp = () => {
             <Input
               label="apellido"
               name="surname"
-              width="212px"
               register={register}
               required="Debe ingresar un apellido"
               errors={errors.surname || null}
@@ -73,11 +84,11 @@ const SignUp = () => {
           />
 
           <Input
-            label="correo electronico"
+            label="correo electrónico"
             name="email"
             type="email"
             register={register}
-            required="Debe ingresar un correo electronico"
+            required="Debe ingresar un correo electrónico"
             errors={errors.email || null}
           />
 
@@ -100,9 +111,19 @@ const SignUp = () => {
             validate={(value) => value === watch('password') || 'Las contraseñas no coinciden'}
             errors={errors.password_confirmation || null}
           />
+          {error && (
+          <span className={styles.error}>
+            El nombre de usuario o el correo electronico ingresados se encuentran en uso
+          </span>
+          )}
 
-          <div className={styles.ContainerButtonSignUp}>
-            <Button text="Create an account" submit />
+          <div className={styles.ContainerButtonForm}>
+            <Button
+              styles={styles.BtnForm}
+              text={promiseInProgress ? <Spinner spinnerType="ring" moveType="spin" /> : 'Crea tu cuenta'}
+              submit
+              spinner
+            />
           </div>
 
         </form>
