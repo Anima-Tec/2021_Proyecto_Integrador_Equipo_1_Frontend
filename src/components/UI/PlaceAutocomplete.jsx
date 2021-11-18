@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
@@ -11,14 +11,14 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 import { useHistory } from 'react-router-dom';
-import styles from '../../App.module.scss';
+import styles from './PlaceAutocomplete.module.scss';
 import AddressService from '../../networking/AddressService';
 
 const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
   const history = useHistory();
-  const [addressValue, setAddressValue] = React.useState('');
+  const [addressValue, setAddressValue] = useState('');
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     onFilteredData(allReports);
   }, []);
 
@@ -56,10 +56,7 @@ const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
 
   return (
     <>
-      <Paper sx={{
-        p: '2px 4px', display: 'flex', alignItems: 'center', width: '65%',
-      }}
-      >
+      <Paper className={styles.PaperContainer}>
         <div className={styles.ContainerPlacesAutocomplete}>
           <PlacesAutocomplete
             value={addressValue}
@@ -75,7 +72,7 @@ const PlaceAutocomplete = ({ allReports, onFilteredData }) => {
                   <input
                     className={styles.LocationSearchInput}
                     {...getInputProps({
-                      placeholder: 'Search Places ...',
+                      placeholder: 'encuentra un lugar',
                       onKeyDown: (e) => {
                         if (e.keyCode === 13) searchAddress();
                       },

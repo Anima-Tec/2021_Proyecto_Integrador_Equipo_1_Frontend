@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
@@ -14,7 +14,7 @@ const SignUp = () => {
   const {
     register, handleSubmit, formState: { errors }, watch,
   } = useForm();
-  const [error, setError] = React.useState(false);
+  const [error, setError] = useState(false);
   const history = useHistory();
   const { promiseInProgress } = usePromiseTracker();
 

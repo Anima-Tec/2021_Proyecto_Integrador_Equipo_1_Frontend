@@ -1,0 +1,67 @@
+.Card {
+    width: 660px;
+    height: 400px;
+    margin: 32px;
+    border-radius: 28px !important;
+}
+
+.CardActionArea {
+    width: 660px;
+    height: 400px;
+    border-radius: 28px;
+}
+
+.CardMedia {
+    height: 70%;
+}
+
+.CardContent {
+    height: 30%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0px 10% !important;
+}
+
+.ContainerInfo {
+    display: flex;
+    flex-direction: column;
+    padding-left: 24px;
+    width: 50%;
+}
+
+@media (max-width: 425px) {
+    .Card {
+        width: 270px;
+        height: 230px;
+    }
+    
+    .CardActionArea {
+        width: 270px;
+        height: 230px;
+    }
+
+    .ContainerInfo > div {
+        font-size: medium;
+    }
+
+    .ContainerInfo > p {
+        font-size: smaller;
+    }
+
+    .CardContent {
+        padding: 0;
+    }
+}
+    
+@media (max-width: 768px) and (min-width: 426px) {
+    .Card {
+        width: 500px;
+        height: 350px;
+    }
+    
+    .CardActionArea {
+        width: 500px;
+        height: 350px;
+    }
+}

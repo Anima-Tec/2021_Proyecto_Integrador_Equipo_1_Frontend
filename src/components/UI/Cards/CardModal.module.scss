@@ -1,0 +1,24 @@
+.CardMedia {
+    height: 40%;
+}
+
+.CardContent {
+    height: 60%;
+    display: flex;
+    width: auto;
+    padding: 10px 5%;
+    flex-direction: column;
+}
+
+.Rating {
+    color: #9A31E4 !important;
+    align-items: center;
+}
+
+.Footer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    align-items: center;
+}

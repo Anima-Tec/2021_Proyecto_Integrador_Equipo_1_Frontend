@@ -1,23 +1,23 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useHistory } from 'react-router-dom';
 import styles from './InfoPlace.module.scss';
 import AddressService from '../../networking/AddressService';
 import PlaceController from '../../networking/controllers/PlaceController';
-import Cards from '../UI/Card';
-import CardLoading from '../UI/CardLoading';
+import Cards from '../UI/Cards/Card';
+import CardLoading from '../UI/Cards/CardLoading';
 
 const Place = () => {
   const history = useHistory();
-  const [place, setPlace] = React.useState([0]);
-  const [allReports, setAllReports] = React.useState([0]);
-  const [dataLoading, setDataLoading] = React.useState(true);
-  const [error, setError] = React.useState('');
+  const [place, setPlace] = useState([0]);
+  const [allReports, setAllReports] = useState([0]);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getReportes = async () => {
       try {
         const placeInfo = await PlaceController.getPlace(AddressService.getAddress());

@@ -2,7 +2,7 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CircularProgress, Button, Backdrop } from '@mui/material';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
@@ -12,12 +12,12 @@ import ReportsController from '../../../networking/controllers/ReportsController
 
 export default function CreateReport({ onGetNewReports }) {
   const { promiseInProgress } = usePromiseTracker();
-  const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleOpenBackdrop = () => setOpenBackdrop(true);
   const handleCloseBackdrop = () => { setOpenBackdrop(false); onGetNewReports(); };
-  const [success, setSuccess] = React.useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => { setOpen(false); };
 

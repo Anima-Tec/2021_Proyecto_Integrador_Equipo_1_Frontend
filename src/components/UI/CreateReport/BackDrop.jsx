@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Backdrop, IconButton,
@@ -7,10 +7,10 @@ import {
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import styles from '../../../App.module.scss';
+import styles from './BackDrop.module.scss';
 
 const BackDrop = ({ success, handleCloseBackdrop, openBackdrop }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       handleCloseBackdrop();
     }, 5000);

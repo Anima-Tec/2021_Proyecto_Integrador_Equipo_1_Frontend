@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Avatar from '@mui/material/Avatar';
@@ -9,30 +9,19 @@ import SessionController from '../../networking/controllers/SessionController';
 import Button from './Button';
 import CreateReport from './CreateReport/CreateReport';
 import Spinner from './Spinner';
-import styles from '../../App.module.scss';
+import styles from './SideBar.module.scss';
 import ReportsController from '../../networking/controllers/ReportsController';
 
 const SideBar = ({
   username, imgUser, name, surname, onRefreshReports,
 }) => {
   const { promiseInProgress } = usePromiseTracker();
-  const [error, setError] = React.useState([0]);
+  const [error, setError] = useState([0]);
 
   const logOut = async () => {
     await trackPromise(SessionController.logout());
     window.location.reload();
   };
-
-  function stringAvatar(fullName) {
-    return {
-      sx: {
-        bgcolor: '#9A31E4',
-        width: 56,
-        height: 56,
-      },
-      children: `${fullName.split(' ')[0][0]}${fullName.split(' ')[1][0]}`,
-    };
-  }
 
   const getNewsReports = async () => {
     try {
@@ -50,10 +39,9 @@ const SideBar = ({
         <h1>
           {username}
         </h1>
-        <Avatar {...stringAvatar(`${name} ${surname}`)} src="" />
+        <Avatar src="/defaultUserImage.png" />
       </div>
       <div className={styles.SideBarMenu}>
-        <div className={styles.Curve} />
         <ul>
           <li>
             <Button text="INICIO" path="/inicio" />

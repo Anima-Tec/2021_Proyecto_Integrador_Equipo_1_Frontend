@@ -1,0 +1,69 @@
+.ContainerLocationSearchInput {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-left: 5px;
+  }
+  
+  .LocationSearchInput {
+    font: inherit;
+    letter-spacing: inherit;
+    color: currentColor;
+    padding: 4px 0 5px;
+    border: 0;
+    box-sizing: content-box;
+    background: none;
+    height: 1.4375em;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0;
+    width: 100%;
+    -webkit-animation-name: mui-auto-fill-cancel;
+    animation-name: mui-auto-fill-cancel;
+    -webkit-animation-duration: 10ms;
+    animation-duration: 10ms;
+    outline: none;
+  }
+  
+  .LocationSearchInput:focus{
+    border: 1px solid;
+    border-width: 0 0 2px;
+    border-color: #cacad5;
+  }
+  
+  .ContainerPlacesAutocomplete {
+    width: 99%;
+  }
+  
+  .ContainerLocationSearchInput > input {
+    width: 95%;
+  }
+
+  .ContainerLocationSearchInput > input::placeholder {
+    color: #3C9EDE;
+  }
+  
+  .ContainerIconsSearchInput {
+    width: 25%;
+    display: flex;
+  }
+
+  .PaperContainer {
+    display: flex;
+    align-items: center;
+    width: 65%;
+    min-height: 40px;
+    border-radius: 20px !important;
+  }
+
+  .PaperContainer:focus {
+    border-radius: 4px !important;
+  }
+
+@media (max-width: 425px) {
+  .ContainerIconsSearchInput {
+    width: 50%;
+  }
+}

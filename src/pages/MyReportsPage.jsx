@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import SideBar from '../components/UI/SideBar';
 /* import TokenService from '../networking/TokenServie'; */
@@ -12,11 +12,11 @@ import TokenService from '../networking/TokenService';
 const MyReportsPage = () => {
 /*   const data = TokenService.getUser();
   console.log(data); */
-  const [allReports, setAllReports] = React.useState([0]);
-  const [dataLoading, setDataLoading] = React.useState(true);
-  const [error, setError] = React.useState('');
+  const [allReports, setAllReports] = useState([0]);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     const data = await TokenService.getUser();
     const getReportes = async () => {
       try {

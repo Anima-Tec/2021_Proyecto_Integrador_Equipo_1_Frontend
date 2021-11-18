@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import * as React from 'react';
+import React, { useState } from 'react';
 /* import PropTypes from 'prop-types'; */
 import { styled } from '@mui/material/styles';
 import {
@@ -28,7 +28,7 @@ export default function BottomAppBar() {
     window.location.reload();
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);

@@ -1,17 +1,17 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PlaceAutocomplete from '../UI/PlaceAutocomplete';
 import styles from './Login.module.scss';
-import Cards from '../UI/Card';
-import CardLoading from '../UI/CardLoading';
+import Cards from '../UI/Cards/Card';
+import CardLoading from '../UI/Cards/CardLoading';
 
 const Home = ({ allReports, dataLoading }) => {
-  const [filteredReports, setFilteredReports] = React.useState([0]);
+  const [filteredReports, setFilteredReports] = useState([0]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFilteredReports(allReports);
   }, allReports);
 
