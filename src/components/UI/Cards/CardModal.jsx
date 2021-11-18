@@ -6,8 +6,11 @@ import {
 } from '@mui/material';
 import { useMediaQuery } from 'react-responsive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ThumbDown from '@mui/icons-material/ThumbDown';
+import ThumbUp from '@mui/icons-material/ThumbUp';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import TokenService from '../../../networking/TokenService';
 import ReportsController from '../../../networking/controllers/ReportsController';
 import AddressService from '../../../networking/AddressService';
 import styles from './CardModal.module.scss';
@@ -17,6 +20,16 @@ const CardModal = ({
 }) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
+  const data = TokenService.getUser();
+  const userType = data.data.typeUser;
+
+  const RefuseReport = (id) => {
+    ReportsController.refuseReport(id);
+  };
+
+  const ApproveReport = (id) => {
+    ReportsController.approveReport(id);
+  };
 
   const HandleClickPopover = (event) => {
     setAnchorEl(event.currentTarget);
@@ -164,36 +177,62 @@ const CardModal = ({
             : (
               <>
                 <Box className={styles.Footer}>
-                  <Avatar src="/defaultUserImage.png" />
-                  <Typography variant="body2" sx={{ marginLeft: '20px' }}>
-                    Escrito por
-                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{capitalizarPrimeraLetra(`${oneReport.username}`)}</Typography>
-                  </Typography>
-                  <IconButton aria-describedby={idPopover} onClick={HandleClickPopover}>
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Popover
-                    id={idPopover}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={HandleClosePopover}
-                    anchorOrigin={{
-                      vertical: 'center',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
-                    }}
-                  >
-                    <Button
-                      variant="contained"
-                      sx={{ p: 2, backgroundColor: '#6F12E7' }}
-                      onClick={() => reportReport(oneReport.id)}
-                    >
-                      Reportar
-                    </Button>
-                  </Popover>
+                  <Box sx={{ display: 'flex' }}>
+                    <Avatar src="/defaultUserImage.png" />
+                    <Typography variant="body2" sx={{ marginLeft: '20px' }}>
+                      Escrito por
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{capitalizarPrimeraLetra(`${oneReport.username}`)}</Typography>
+                    </Typography>
+                  </Box>
+                  {userType === 'normal' ? (
+                    <>
+                      <Box sx={{
+                        marginLeft: '10%', display: 'flex', width: '20%', justifyContent: 'space-between',
+                      }}
+                      >
+                        <IconButton
+                          aria-describedby={idPopover}
+                          onClick={() => RefuseReport(oneReport.id)}
+                        >
+                          <ThumbDown sx={{ color: 'red' }} />
+                        </IconButton>
+                        <IconButton
+                          aria-describedby={idPopover}
+                          onClick={() => ApproveReport(oneReport.id)}
+                        >
+                          <ThumbUp sx={{ color: 'green' }} />
+                        </IconButton>
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <IconButton aria-describedby={idPopover} onClick={HandleClickPopover}>
+                        <MoreVertIcon />
+                      </IconButton>
+                      <Popover
+                        id={idPopover}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={HandleClosePopover}
+                        anchorOrigin={{
+                          vertical: 'center',
+                          horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          sx={{ p: 2, backgroundColor: '#6F12E7' }}
+                          onClick={() => reportReport(oneReport.id)}
+                        >
+                          Reportar
+                        </Button>
+                      </Popover>
+                    </>
+                  )}
                 </Box>
               </>
             )}

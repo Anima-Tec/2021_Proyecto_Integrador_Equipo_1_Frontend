@@ -44,7 +44,7 @@ const HomePage = () => {
   });
   return (
     <div className={styles.ContainerHome}>
-      { userType === 'admin' ? (
+      { userType === 'normal' ? (
         <>
           <div className={styles.ContainerAdminMenu}>
             <BasicSpeedDial />

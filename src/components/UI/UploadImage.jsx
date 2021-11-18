@@ -11,7 +11,12 @@ const UploadImage = ({ photo, photoReturn }) => {
   const [selectedImage, setSelectedImage] = useState(photo);
 
   useEffect(() => {
-    photoReturn(selectedImage);
+    const formData = new FormData();
+    formData.append('photo', selectedImage);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const value of formData.values()) {
+      photoReturn(value);
+    }
   }, [selectedImage]);
 
   return (
@@ -55,6 +60,7 @@ const UploadImage = ({ photo, photoReturn }) => {
                   type="file"
                   name="photo"
                   accept="image/png, image/jpeg"
+                  webkitRelativePath
                   onChange={(event) => {
                     setSelectedImage(event.target.files[0]);
                   }}
