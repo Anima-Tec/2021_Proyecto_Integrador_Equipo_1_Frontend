@@ -1,165 +1,170 @@
 .ContainerAllIndex {
-    margin: 0px;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(150deg, rgba(201,156,233,1) 0%, rgba(201,156,233,0) 100%);
-  }
+  margin: 0px;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(150deg, rgba(201,156,233,1) 0%, rgba(201,156,233,0) 100%);
+}
   
-  .ContainerAllRegister {
-    margin: 0px;
-    width: 100%;
-    height: 100vh;
-    background-image: url(../../assets/images/Register.svg);
-    background-position:center;
-    background-repeat: no-repeat;
-  }
+.ContainerAllRegister {
+  margin: 0px;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../../assets/images/Register.svg);
+  background-position:center;
+  background-repeat: no-repeat;
+}
   
-  .ContainerAllLogin {
-    margin: 0px;
-    width: 100%;
-    height: 100vh;
-    background-image: url(../../assets/images/Login.svg);
-    background-position:center;
-    background-repeat: no-repeat;
-  }
+.ContainerAllLogin {
+  margin: 0px;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../../assets/images/Login.svg);
+  background-position:center;
+  background-repeat: no-repeat;
+}
   
 .ContainerGlobal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: white;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
   
-  .ContainerTitleForm {
-    width: 370px;
-    text-align: center;
-    margin-bottom: -10px;
-  }
+.ContainerTitleForm {
+  width: 370px;
+  text-align: center;
+  margin-bottom: -10px;
+}
 
-  .InputGroup, .ButtonGroup {
-    display: flex;
-    justify-content: space-between;
-  }
+.InputGroup, .ButtonGroup {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .BtnIndexOne {
-    color: white;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 14px;
-    margin: 10px auto;
-    background: linear-gradient(90deg, rgba(60,158,222,1) 0%, rgba(154,49,228,1) 100%);
-    font-weight: 700;
-  }
+.BtnIndexOne {
+  color: white;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  margin: 10px auto;
+  background: linear-gradient(90deg, rgba(60,158,222,1) 0%, rgba(154,49,228,1) 100%);
+  font-weight: 700;
+}
   
-  .BtnIndexTwo {
-    color: white;
-    width: 150px;
-    height: 40px;
-    border: 1px solid white;
-    border-radius: 14px;
-    margin: 10px auto;
-    background: #00000000;
-    font-weight: 700;
-  }
+.BtnIndexTwo {
+  color: white;
+  width: 150px;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 14px;
+  margin: 10px auto;
+  background: #00000000;
+  font-weight: 700;
+}
 
-  @media (max-width: 425px) {
-    .ContainerInput > input {
-      width: 200px;
-      height: 30px;
-    }
-  
-    .InputGroup > .ContainerInput > input {
-      width: 85px;
-    }
-  
-    .ContainerHome {
-      background-color: #6F12E7;
-    }
-  }
-  
-  @media (max-width: 768px) and (min-width: 425px) {
-    .ContainerInput > input {
-      width: 300px;
-      height: 30px;
-    }
-  
-    .InputGroup > .ContainerInput > input {
-      width: 135px;
-    }
-  }
-  
-  .BtnForm {
-    color: white;
-    background-color: #C99CE9;
-    background-image: none;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 20px;
-    margin: 10px auto;
-    box-shadow: none;
-  }
+.FormErrors {
+  width: 100%;
+  text-align: center;
+}
 
-  .ContainerInput {
-    display: flex;
-    flex-direction: column;
-    margin: 2px 5px;
-  }
+.BtnForm {
+  color: white;
+  background-color: #C99CE9;
+  background-image: none;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  margin: 10px auto;
+  box-shadow: none;
+}
+
+.ContainerInput {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 5px;
+}
   
-  .ContainerInput > label {
-    padding-left: 5px;
-  }
+.ContainerInput > label {
+  padding-left: 5px;
+}
   
+.ContainerInput > input {
+  width: 450px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  padding: 3px 10px;
+}
+  
+.ButtonGroup > button {
+  margin: 0px 20px
+}
+  
+.InputGroup > .ContainerInput > input {
+  width: 212px;
+}
+  
+.ContainerTitleForm > h1 {
+  font-size: xx-large;
+}
+  
+.ContainerTitleForm > p {
+  margin: 0;
+}
+  
+.ContainerButtonForm {
+  display: flex;
+}
+  
+.ContainerTextIndex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+  
+.ContainerTextIndex > p{
+  margin: 0;
+  font-weight: 700;
+  font-size: small;
+  letter-spacing: 1px;
+}
+.ContainerTextIndex > h1 {
+  margin: 0;
+}
+  
+.error {
+  color: red;
+  margin-left: 5px;
+}
+
+@media (max-width: 425px) {
   .ContainerInput > input {
-    width: 450px;
-    height: 35px;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    padding: 3px 10px;
-  }
-  
-  .ButtonGroup > button {
-    margin: 0px 20px
+    width: 200px;
+    height: 30px;
   }
   
   .InputGroup > .ContainerInput > input {
-    width: 212px;
+    width: 85px;
   }
   
-  .ContainerTitleForm > h1 {
-    font-size: xx-large;
+  .ContainerHome {
+    background-color: #6F12E7;
+  }
+}
+  
+@media (max-width: 768px) and (min-width: 426px) {
+  .ContainerInput > input {
+    width: 300px;
+    height: 30px;
   }
   
-  .ContainerTitleForm > p {
-    margin: 0;
+  .InputGroup > .ContainerInput > input {
+    width: 135px;
   }
-  
-  .ContainerButtonForm {
-    display: flex;
-  }
-  
-  .ContainerTextIndex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-  
-  .ContainerTextIndex > p{
-    margin: 0;
-    font-weight: 700;
-    font-size: small;
-    letter-spacing: 1px;
-  }
-  .ContainerTextIndex > h1 {
-    margin: 0;
-  }
-  
-  .error {
-    color: red;
-    margin-left: 5px;
-  }
+}

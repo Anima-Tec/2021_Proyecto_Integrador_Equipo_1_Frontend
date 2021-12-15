@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 /* import { useMediaQuery } from 'react-responsive'; */
 import BasicSpeedDial from '../components/UI/SpeedDial';
 /* import TokenService from '../networking/TokenServie'; */
@@ -10,11 +10,11 @@ import ReportsController from '../networking/controllers/ReportsController';
 const ReporteredReportsPage = () => {
 /*   const data = TokenService.getUser();
   console.log(data); */
-  const [allReports, setAllReports] = React.useState([0]);
-  const [dataLoading, setDataLoading] = React.useState(true);
-  const [error, setError] = React.useState('');
+  const [allReports, setAllReports] = useState([0]);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     const getReportes = async () => {
       try {
         const reports = await ReportsController.getReporteredReports();

@@ -1,0 +1,40 @@
+.ContainerHeader {
+    border-bottom: 1px solid #D0D0D0;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ContainerBodyAndRadioBtns {
+    border-bottom: 1px solid #D0D0D0;
+    height: 73%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ContainerBody {
+    margin: 3px 0px;
+    width: 100%;
+    height: 80%;
+    cursor: text;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ContainerTextInputs {
+    margin: 3px 0px;
+    width: 80%;
+    cursor: text;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.ContainerFooter {
+    border-top: 1px solid #D0D0D0;
+    height: 12%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}

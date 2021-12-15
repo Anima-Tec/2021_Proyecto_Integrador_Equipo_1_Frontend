@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style *//* eslint-disable arrow-body-style */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import SideBar from '../components/UI/SideBar';
 import BasicSpeedDial from '../components/UI/SpeedDial';
@@ -14,12 +14,12 @@ import TokenService from '../networking/TokenService';
 const HomePage = () => {
   const data = TokenService.getUser();
   const userType = data.data.typeUser;
-  const [allReports, setAllReports] = React.useState([0]);
-  const [person, setPerson] = React.useState([0]);
-  const [dataLoading, setDataLoading] = React.useState(true);
-  const [error, setError] = React.useState('');
+  const [allReports, setAllReports] = useState([0]);
+  const [person, setPerson] = useState([0]);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     const getReportes = async () => {
       try {
         const reports = await ReportsController.getReports();
@@ -44,7 +44,7 @@ const HomePage = () => {
   });
   return (
     <div className={styles.ContainerHome}>
-      { userType === 'admin' ? (
+      { userType === 'normal' ? (
         <>
           <div className={styles.ContainerAdminMenu}>
             <BasicSpeedDial />

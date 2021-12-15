@@ -44,7 +44,7 @@ class ReportsController {
 
   static async getReport(id) {
     const data = await TokenService.getUser();
-    if (data.data.typeUser === 'admin') {
+    if (data.data.typeUser === 'normal') {
       const response = await axios.get(generateURL(`/reportered/${id}`),
         {
           headers: { Authorization: `Bearer ${data.data.token}` },
@@ -98,6 +98,24 @@ class ReportsController {
         id_report: id,
         id_person: data.data.userId,
       },
+      {
+        headers: { Authorization: `Bearer ${data.data.token}` },
+      });
+  }
+
+  static async approveReport(id) {
+    const data = TokenService.getUser();
+    await axios.patch(generateURL(`/admin/report/${id}`),
+      {},
+      {
+        headers: { Authorization: `Bearer ${data.data.token}` },
+      });
+  }
+
+  static async refuseReport(id) {
+    const data = TokenService.getUser();
+    await axios.delete(generateURL(`/admin/report/${id}`),
+      {},
       {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });

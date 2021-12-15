@@ -1,26 +1,27 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button, Modal, Typography, Box, Avatar, TextareaAutosize, Rating,
   Radio, RadioGroup, FormLabel, FormControlLabel,
 } from '@mui/material';
+import { useMediaQuery } from 'react-responsive';
 import moment from 'moment';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import UploadImage from '../UploadImage';
-import styles from '../../../App.module.scss';
+import styles from './Modal.module.scss';
 
 const ModalCreateReport = ({
   open, handleClose, createReport, handleOpenBackdrop,
 }) => {
-  const [assessmentValue, setAssessmentValue] = React.useState(2);
-  const [selectedValue, setSelectedValue] = React.useState('');
-  const [textValue, setTextValue] = React.useState('');
-  const [statusEdit, setStatusEdit] = React.useState(false);
-  const [addressValue, setAddressValue] = React.useState('Ubicación');
-  const [nameValue, setNameValue] = React.useState('Ubicación');
-  const [photoValue, setPhotoValue] = React.useState(null);
+  const [assessmentValue, setAssessmentValue] = useState(2);
+  const [selectedValue, setSelectedValue] = useState('');
+  const [textValue, setTextValue] = useState('');
+  const [statusEdit, setStatusEdit] = useState(false);
+  const [addressValue, setAddressValue] = useState('Ubicación');
+  const [nameValue, setNameValue] = useState('Ubicación');
+  const [photoValue, setPhotoValue] = useState(null);
   const defaultValues = () => {
     setAssessmentValue(2);
     setSelectedValue('');
@@ -75,29 +76,22 @@ const ModalCreateReport = ({
     createReport(data);
   };
 
+  const isTablet = useMediaQuery({
+    query: '(max-width: 768px)',
+  });
+
   const boxStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    height: 400,
-    width: 700,
+    height: isTablet ? 350 : 400,
+    width: isTablet ? 600 : 700,
     bgcolor: 'background.paper',
     borderRadius: '30px',
     boxShadow: 24,
     p: 4,
   };
-
-  function stringAvatar(name) {
-    return {
-      sx: {
-        bgcolor: '#9A31E4',
-        width: 50,
-        height: 50,
-      },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
-  }
 
   return (
     <Modal
@@ -106,14 +100,8 @@ const ModalCreateReport = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={boxStyle}>
-        <Box sx={{
-          borderBottom: '1px solid #D0D0D0',
-          height: '15%',
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-        >
-          <Avatar {...stringAvatar('Andrew Cabrera')} src="/imgUser.png" />
+        <Box className={styles.ContainerHeader}>
+          <Avatar src="/defaultUserImage.png" />
           <Rating
             sx={{
               color: '#9A31E4', fontSize: '2.5rem', alignSelf: 'center',
@@ -125,27 +113,9 @@ const ModalCreateReport = ({
             }}
           />
         </Box>
-        <Box sx={{
-          borderBottom: '1px solid #D0D0D0',
-          height: '73%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-        >
-          <Box sx={{
-            margin: '3px 0px', width: '100%', height: '80%', cursor: 'text', display: 'flex', justifyContent: 'space-between',
-          }}
-          >
-            <Box sx={{
-              margin: '3px 0px',
-              width: '80%',
-              cursor: 'text',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'column',
-            }}
-            >
+        <Box className={styles.ContainerBodyAndRadioBtns}>
+          <Box className={styles.ContainerBody}>
+            <Box className={styles.ContainerTextInputs}>
               { statusEdit
                 ? (
                   <>
@@ -220,17 +190,7 @@ const ModalCreateReport = ({
                 onChange={textAreaChange}
               />
             </Box>
-            <Box sx={{
-              margin: '3px 0px',
-              width: '20%',
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-            }}
-            >
-              <UploadImage photo={photoValue} photoReturn={photoReturn} />
-            </Box>
+            <UploadImage photo={photoValue} photoReturn={photoReturn} />
           </Box>
           <RadioGroup
             aria-label="type_report"
@@ -267,16 +227,8 @@ const ModalCreateReport = ({
               label="Denuncia."
             />
           </RadioGroup>
-
         </Box>
-        <Box sx={{
-          borderTop: '1px solid #D0D0D0',
-          height: '12%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-        }}
-        >
+        <Box className={styles.ContainerFooter}>
           <Button
             sx={{
               height: 35, borderRadius: '8px', width: '100px', background: 'linear-gradient(90deg, rgba(196,196,196,1) 0%, rgba(60,158,222,1) 100%)',

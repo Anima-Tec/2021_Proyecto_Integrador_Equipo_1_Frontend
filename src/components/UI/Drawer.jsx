@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   SwipeableDrawer, Typography, Box, Button,
@@ -13,12 +13,12 @@ const drawerBleeding = 56;
 export default function Drawer({ windows, open }) {
   const container = windows !== undefined ? () => window().document.body : undefined;
 
-  const [assessmentValue, setAssessmentValue] = React.useState(2);
-  const [selectedValue, setSelectedValue] = React.useState('');
-  const [textValue, setTextValue] = React.useState('');
-  /* const [statusEdit, setStatusEdit] = React.useState(false); */
-  const [addressValue, setAddressValue] = React.useState('Ubicación');
-  const [nameValue, setNameValue] = React.useState('Ubicación');
+  const [assessmentValue, setAssessmentValue] = useState(2);
+  const [selectedValue, setSelectedValue] = useState('');
+  const [textValue, setTextValue] = useState('');
+  /* const [statusEdit, setStatusEdit] = useState(false); */
+  const [addressValue, setAddressValue] = useState('Ubicación');
+  const [nameValue, setNameValue] = useState('Ubicación');
   const defaultValues = () => {
     setAssessmentValue(2);
     setSelectedValue('');
@@ -28,16 +28,16 @@ export default function Drawer({ windows, open }) {
     setNameValue('Ubicación');
   };
 
-  /* const [openBackdrop, setOpenBackdrop] = React.useState(false);
+  /* const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleOpenBackdrop = () => setOpenBackdrop(true);
   const handleCloseBackdrop = () => { setOpenBackdrop(false); onGetNewReports(); }; */
-  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpenDrawer(newOpen);
     defaultValues();
   };
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     toggleDrawer(open);
   }, open);
 
